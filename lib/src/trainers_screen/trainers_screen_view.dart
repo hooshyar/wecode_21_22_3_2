@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecode_2021/src/temp/students_mock_data.dart';
 
 class TrainersScreenView extends StatelessWidget {
   const TrainersScreenView({Key? key, this.userName, this.password})
@@ -9,7 +10,25 @@ class TrainersScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(child: Text('trainers screen $userName ')),
+      body: ListView.builder(
+        itemCount: studentMockList.length,
+        itemBuilder: (context, index) {
+          return theStudentsCard(index);
+        },
+      ),
+    );
+  }
+
+  theStudentsCard(int index) {
+    return Container(
+      padding: EdgeInsets.all(8),
+      margin: EdgeInsets.only(top: 10, right: 10, left: 10),
+      decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
+          )),
+      child: Text(studentMockList[index].name ?? 'no name'),
     );
   }
 }
