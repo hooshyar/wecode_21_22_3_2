@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -43,13 +44,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
                   name = name.trim(); //remove spaces
                   name = name.toLowerCase(); //convert to lowercase
-                  debugPrint('==================>  $name');
-                  debugPrint('==================>  $password');
+
+                  if (name == 'hooshyar' && password == 'another') {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => TrainersScreenView(
+                          userName: name,
+                          password: password,
+                        ),
+                      ),
+                    );
+                  }
                 },
                 icon: Icon(
                   Icons.login,
                 ),
-                label: Text('change the user name'),
+                label: Text('Login'),
               ),
               SizedBox(
                 height: 50,

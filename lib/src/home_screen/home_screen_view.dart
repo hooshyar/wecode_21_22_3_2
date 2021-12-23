@@ -12,7 +12,7 @@ class HomeScreenView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Welcome',
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300),
             ),
@@ -22,7 +22,7 @@ class HomeScreenView extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login');
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 child: Text('Login'))
           ],
