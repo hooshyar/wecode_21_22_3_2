@@ -13,13 +13,13 @@ class TrainersScreenView extends StatelessWidget {
       body: ListView.builder(
         itemCount: studentMockList.length,
         itemBuilder: (context, index) {
-          return theStudentsCard(index);
+          return _theStudentsCard(index);
         },
       ),
     );
   }
 
-  theStudentsCard(int index) {
+  Widget _theStudentsCard(int index) {
     return Container(
       padding: EdgeInsets.all(8),
       margin: EdgeInsets.only(top: 10, right: 10, left: 10),
