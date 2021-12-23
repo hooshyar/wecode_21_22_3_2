@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wecode_2021/src/temp/students_mock_data.dart';
 
 class TrainersScreenView extends StatelessWidget {
@@ -55,15 +56,21 @@ class TrainersScreenView extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 150,
-                      width: 150,
+                      width: 90,
                     ),
-                    Text(
-                      studentMockList[index].name ?? 'no name',
-                      style: TextStyle(fontSize: 14),
+                    Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(studentMockList[index].name ?? 'no name',
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.roboto(fontSize: 18)),
                     ),
                     Column(
                       children: [
-                        Text(studentMockList[index].points.toString()),
+                        Container(
+                          child: Text(
+                            studentMockList[index].points.toString(),
+                          ),
+                        ),
                         Divider(
                           height: 8,
                         ),
