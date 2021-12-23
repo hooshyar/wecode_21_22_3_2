@@ -9,7 +9,7 @@ List<Student> studentMockList = [
       'fasdf',
       3223,
       32,
-      'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg',
+      'https://bondprinting.com/wp-content/uploads/2019/03/placeholder-face-big.png',
       false),
   Student(
       'dfdasddfsadf',
@@ -18,7 +18,7 @@ List<Student> studentMockList = [
       'fasdf',
       3223,
       32,
-      'https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.jpg',
+      'https://bondprinting.com/wp-content/uploads/2019/03/placeholder-face-big.png',
       false),
   Student(
       '3232323dfdasd',
