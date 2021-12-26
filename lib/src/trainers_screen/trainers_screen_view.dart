@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wecode_2021/src/temp/students_mock_data.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class TrainersScreenView extends StatelessWidget {
   const TrainersScreenView({Key? key, this.userName, this.password})
@@ -13,7 +14,7 @@ class TrainersScreenView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(),
         body: Container(
-          child: FutureBuilder(
+          child: FutureBuilder<List<dynamic>>(
             future: getUsers(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
@@ -24,7 +25,11 @@ class TrainersScreenView extends StatelessWidget {
                 return Text(snapshot.error.toString());
               } else {
                 //show the data
-                return Text(snapshot.data.toString());
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return Text(snapshot.data![index]);
+                    });
               }
             },
           ),
@@ -39,10 +44,18 @@ class TrainersScreenView extends StatelessWidget {
         );
   }
 
-  Future<http.Response> getUsers() async {
+  Future<List<dynamic>> getUsers() async {
+    //the end point url
     String theUrl = "https://jsonplaceholder.typicode.com/users";
+
+    // wait and revieve a response from the endpoint
     http.Response response = await http.get(Uri.parse(theUrl));
-    return response;
+
+    // decode the json body to a list<dynamic>
+    List decodedJson = jsonDecode(response.body);
+
+    // return a list of strings from the list<dynamic> we had
+    return decodedJson.map((e) => e["name"]).toList();
   }
 
   Widget _theStudentsCard(int index) {
