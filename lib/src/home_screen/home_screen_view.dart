@@ -22,12 +22,17 @@ class HomeScreenView extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/login');
+                  Navigator.pushReplacementNamed(context, '/trainersScreen');
                 },
-                child: Text('Login'))
+                child: Text('Trainers Screen'))
           ],
         ),
       ),
     );
   }
+
+  // String wait3Seconds(){
+  //   // await Future.delayed(Duration(seconds: 3));
+  //   return 'value recieved';
+  // }
 }

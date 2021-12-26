@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wecode_2021/src/temp/students_mock_data.dart';
+import 'package:http/http.dart' as http;
 
 class TrainersScreenView extends StatelessWidget {
   const TrainersScreenView({Key? key, this.userName, this.password})
@@ -10,14 +11,38 @@ class TrainersScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: ListView.builder(
-        itemCount: studentMockList.length,
-        itemBuilder: (context, index) {
-          return _theStudentsCard(index);
-        },
-      ),
-    );
+        appBar: AppBar(),
+        body: Container(
+          child: FutureBuilder(
+            future: getUsers(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                //  todo: show a loading widget
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                // show an error
+                return Text(snapshot.error.toString());
+              } else {
+                //show the data
+                return Text(snapshot.data.toString());
+              }
+            },
+          ),
+        )
+
+        // ListView.builder(
+        //   itemCount: studentMockList.length,
+        //   itemBuilder: (context, index) {
+        //     return _theStudentsCard(index);
+        //   },
+        // ),
+        );
+  }
+
+  Future<http.Response> getUsers() async {
+    String theUrl = "https://jsonplaceholder.typicode.com/users";
+    http.Response response = await http.get(Uri.parse(theUrl));
+    return response;
   }
 
   Widget _theStudentsCard(int index) {
