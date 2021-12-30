@@ -22,9 +22,9 @@ class HomeScreenView extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/trainersScreen');
+                  Navigator.pushNamed(context, '/login');
                 },
-                child: Text('Trainers Screen'))
+                child: Text('Login'))
           ],
         ),
       ),
