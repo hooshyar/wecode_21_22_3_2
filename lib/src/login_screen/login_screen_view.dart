@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wecode_2021/src/constants/style.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,60 +21,65 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: [
-          Text('Welcome $name'),
-          Form(
-              child: Column(
-            children: [
-              //user name
-              TextFormField(
-                controller: userNameController,
-                keyboardType: TextInputType.emailAddress,
-              ),
-
-              //passsword
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    name = userNameController.value.text;
-                    password = passwordController.value.text;
-                  });
-                  name = name.trim(); //remove spaces
-                  name = name.toLowerCase(); //convert to lowercase
-
-                  if (name == 'hooshyar' && password == 'another') {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => TrainersScreenView(
-                          userName: name,
-                          password: password,
-                        ),
-                      ),
-                    );
-                  }
-                },
-                icon: Icon(
-                  Icons.login,
+      body: Container(
+        margin: EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Text('Welcome $name'),
+            Form(
+                child: Column(
+              children: [
+                //user name
+                TextFormField(
+                  controller: userNameController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: generalInputDecoration(
+                      labelText: 'User Name', hintText: 'email@something.com'),
                 ),
-                label: Text('Login'),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/privacyPolicyScreen');
+                //passsword
+
+                SizedBox(height: 15),
+
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: generalInputDecoration(labelText: 'Password'),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    setState(() {
+                      name = userNameController.value.text;
+                      password = passwordController.value.text;
+                    });
+                    name = name.trim(); //remove spaces
+                    name = name.toLowerCase(); //convert to lowercase
+
+                    //Basic auth using email and password
+
+                    // await FirebaseAuth.instance
+                    //     .createUserWithEmailAndPassword(
+                    //         email: name, password: password!)
+                    //     .then((value) {
+                    //   debugPrint('=========> user id: ' + value.user!.uid);
+                    // });
                   },
-                  child: Text('Privacy Policy'))
-            ],
-          ))
-        ],
+                  icon: Icon(
+                    Icons.login,
+                  ),
+                  label: Text('Sign up'),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/privacyPolicyScreen');
+                    },
+                    child: Text('Privacy Policy'))
+              ],
+            ))
+          ],
+        ),
       ),
     );
   }
