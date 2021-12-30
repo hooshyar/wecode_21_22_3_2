@@ -62,6 +62,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     //     .then((value) {
                     //   debugPrint('=========> user id: ' + value.user!.uid);
                     // });
+
+                    //todo to create a auth class
+                    //todo know the user auth status
+
+                    //todo create a user class
+                    //todo toJson() , fromJson()
+                    //todo method to create a user
+                    //todo method to login a user
+
+                    //todo do the Firebase Firestore CRUD
                   },
                   icon: Icon(
                     Icons.login,
