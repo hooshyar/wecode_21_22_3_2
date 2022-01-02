@@ -20,11 +20,30 @@ class HomeScreenView extends StatelessWidget {
               color: Colors.indigo,
               height: 25,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                child: Text('Login'))
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login');
+                        },
+                        child: Text('Login')),
+                  ),
+                  VerticalDivider(width: 15),
+                  Expanded(
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
+                        child: Text('register')),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

@@ -4,17 +4,16 @@ import 'package:wecode_2021/src/constants/style.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   String name = 'user name';
   String? password;
-  String? theLoggedInUser;
 
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -25,18 +24,15 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Registeration'),
       ),
       body: Container(
         margin: EdgeInsets.all(15),
         child: Column(
           children: [
-            Text('Welcome $name'),
             Form(
                 child: Column(
               children: [
-                Text('the logged in user: $theLoggedInUser'),
-
                 //user name
                 TextFormField(
                   controller: _userNameController,
@@ -61,19 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                     name = name.trim(); //remove spaces
                     name = name.toLowerCase(); //convert to lowercase
-
-                    await _auth
-                        .loginWithEmailAndPassword(name, password!)
-                        .then((value) {
-                      setState(() {
-                        theLoggedInUser = value!.user!.uid;
-                      });
-                    });
+                    await _auth.registerWithEmailAndPassword(name, password!);
                   },
                   icon: Icon(
                     Icons.login,
                   ),
-                  label: Text('Login'),
+                  label: Text('Sign up'),
                 ),
                 SizedBox(
                   height: 50,
