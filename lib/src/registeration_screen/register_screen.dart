@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wecode_2021/src/constants/style.dart';
+import 'package:wecode_2021/src/providers/nameProvider.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? password;
 
   TextEditingController _userNameController = TextEditingController();
+  TextEditingController _theProviderTestController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
   AuthService _auth = AuthService();
@@ -71,7 +74,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onPressed: () {
                       Navigator.pushNamed(context, '/privacyPolicyScreen');
                     },
-                    child: Text('Privacy Policy'))
+                    child: Text('Privacy Policy')),
+
+                //user name
+
+                TextFormField(
+                  controller: _theProviderTestController,
+                  decoration: generalInputDecoration(labelText: 'Name'),
+                ),
+
+                //the provider part
+                Text(
+                  'Welcome ${Provider.of<TheNameProvider>(context, listen: false).name}',
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300),
+                ),
+
+                ElevatedButton(
+                    onPressed: () {
+                      Provider.of<TheNameProvider>(context, listen: false)
+                          .changeTheName(_theProviderTestController.value.text);
+                    },
+                    child: Text('change the provider value'))
               ],
             ))
           ],

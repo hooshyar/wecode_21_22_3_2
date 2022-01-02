@@ -23,4 +23,6 @@ class AuthService {
 
     return theUserCredentials;
   }
+
+  Stream<User?> get authStatusChanges => _firebaseAuth.authStateChanges();
 }

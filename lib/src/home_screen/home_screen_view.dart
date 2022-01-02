@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wecode_2021/src/providers/nameProvider.dart';
+import 'package:wecode_2021/src/services/auth_service.dart';
 
 class HomeScreenView extends StatelessWidget {
-  const HomeScreenView({Key? key}) : super(key: key);
+  HomeScreenView({Key? key}) : super(key: key);
+
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +17,21 @@ class HomeScreenView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'Welcome',
+            //the provider part
+            Text(
+              'Welcome ${Provider.of<TheNameProvider>(context).name}',
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300),
             ),
+
+            StreamBuilder(
+                stream: _auth.authStatusChanges,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text('the user is ${snapshot.data} ');
+                  } else {
+                    return Text('no User');
+                  }
+                }),
             Divider(
               color: Colors.indigo,
               height: 25,
