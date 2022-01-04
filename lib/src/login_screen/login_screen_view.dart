@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/constants/style.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
@@ -18,8 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-
-  AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +61,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     name = name.trim(); //remove spaces
                     name = name.toLowerCase(); //convert to lowercase
 
-                    await _auth
+                    await Provider.of<AuthService>(context, listen: false)
                         .loginWithEmailAndPassword(name, password!)
                         .then((value) {
                       setState(() {
                         theLoggedInUser = value!.user!.uid;
                       });
+                      Navigator.pop(context);
                     });
                   },
                   icon: Icon(
