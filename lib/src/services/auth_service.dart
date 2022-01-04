@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   User? theUser = FirebaseAuth
       .instance.currentUser; //to have the current user as the initial value
 
