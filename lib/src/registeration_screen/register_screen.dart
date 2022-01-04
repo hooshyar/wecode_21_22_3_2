@@ -21,8 +21,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController _theProviderTestController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  AuthService _auth = AuthService();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +58,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     });
                     name = name.trim(); //remove spaces
                     name = name.toLowerCase(); //convert to lowercase
-                    await _auth.registerWithEmailAndPassword(name, password!);
+                    await Provider.of<AuthService>(context, listen: false)
+                        .registerWithEmailAndPassword(name, password!);
+                    Navigator.pop(context); //pop the current screen
                   },
                   icon: Icon(
                     Icons.login,
