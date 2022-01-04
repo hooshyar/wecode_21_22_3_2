@@ -18,7 +18,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? password;
 
   TextEditingController _userNameController = TextEditingController();
-  TextEditingController _theProviderTestController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -75,26 +74,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Navigator.pushNamed(context, '/privacyPolicyScreen');
                     },
                     child: Text('Privacy Policy')),
-
-                //user name
-
-                TextFormField(
-                  controller: _theProviderTestController,
-                  decoration: generalInputDecoration(labelText: 'Name'),
-                ),
-
-                //the provider part
-                Text(
-                  'Welcome ${Provider.of<TheNameProvider>(context, listen: false).name}',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w300),
-                ),
-
-                ElevatedButton(
-                    onPressed: () {
-                      Provider.of<TheNameProvider>(context, listen: false)
-                          .changeTheName(_theProviderTestController.value.text);
-                    },
-                    child: Text('change the provider value'))
               ],
             ))
           ],

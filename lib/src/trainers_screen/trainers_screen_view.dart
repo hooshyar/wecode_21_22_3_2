@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:wecode_2021/src/services/auth_service.dart';
 import 'package:wecode_2021/src/temp/students_mock_data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -12,7 +14,13 @@ class TrainersScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: Text('Trainer Dashboard'), actions: [
+          IconButton(
+              onPressed: () {
+                Provider.of<AuthService>(context, listen: false).logOut();
+              },
+              icon: Icon(Icons.logout)),
+        ]),
         body: Container(
           child: FutureBuilder<List<dynamic>>(
             future: getUsers(),

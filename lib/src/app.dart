@@ -6,6 +6,7 @@ import 'package:wecode_2021/src/privacy_policy/privacy_policy_screen.dart';
 import 'package:wecode_2021/src/registeration_screen/register_screen.dart';
 import 'package:wecode_2021/src/student_screen/student_screen_view.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
+import 'package:wecode_2021/src/widgets/auth_handler.dart';
 
 class AppView extends StatelessWidget {
   const AppView({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class AppView extends StatelessWidget {
           )),
       initialRoute: '/',
       routes: {
-        '/': (context) => HomeScreenView(),
+        '/': (context) => AuthHandler(),
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
         '/studentScreen': (context) => StudentScreen(),
