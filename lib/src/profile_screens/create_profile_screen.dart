@@ -7,7 +7,9 @@
 // read the data and get an approve from the user
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/constants/style.dart';
+import 'package:wecode_2021/src/services/auth_service.dart';
 
 class CreateProfileScreen extends StatefulWidget {
   CreateProfileScreen({Key? key}) : super(key: key);
@@ -30,6 +32,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   //todo we want to save the email address and the UID as well
   @override
   Widget build(BuildContext context) {
+    var _authProvider = Provider.of<AuthService>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Create your profile'),
@@ -90,13 +94,22 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             //the document ID has to be the users UID
                             await FirebaseFirestore.instance
                                 .collection('users')
-                                .add({
-                              'name': "wha",
-                              'email': 00121212,
-                              'bootCampId': "whad",
-                            }).catchError((e) => debugPrint(e.toString()));
-                          } else {
-                            debugPrint('=======>>>>>> not validated');
+                                .doc(_authProvider.theUser!.uid)
+                                .set({
+                              'uid': _authProvider.theUser!.uid,
+                              'email': _authProvider.theUser!.email,
+                              'name': _nameController.value.text,
+                              'phoneNumber': _phoneNumberController.value.text,
+                              'date': Timestamp.fromDate(DateTime.now()),
+                              'bootCampName':
+                                  _bootCampNameController.value.text,
+                            }, SetOptions(merge: true));
+                            //     .collection('users')
+                            //     .add({
+                            //   'name': "wha",
+                            //   'email': 00121212,
+                            //   'bootCampId': "whad",
+                            // }).catchError((e) => debugPrint(e.toString()));
                           }
                           //to add/set record to the firestore
                           setState(() {});
