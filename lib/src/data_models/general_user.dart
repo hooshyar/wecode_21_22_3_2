@@ -8,10 +8,11 @@ class GeneralUser {
   String? stackOverflow;
   int? points;
   int? thumbsUps;
-  String? imgUrl;
+  String? imgUrl; // Firebase Storage
   String? phoneNumber;
   bool? isTeacher; //if it is a teacher
   bool? isAdmin; //if it is an Admin
+  bool? isCompletedProfile; //if the user completed the profile
   Timestamp? createdAt;
   Timestamp? updatedAt;
   String? bootCampId;

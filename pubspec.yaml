@@ -28,6 +28,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  
+  provider: ^6.0.2
   firebase_core: ^1.10.6
   firebase_auth: ^3.3.4
   cloud_firestore: ^3.1.5
@@ -35,7 +37,6 @@ dependencies:
     sdk: flutter
   google_fonts: ^2.1.1
   http: ^0.13.4
-  provider: ^6.0.2
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
