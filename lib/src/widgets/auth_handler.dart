@@ -18,7 +18,10 @@ class AuthHandler extends StatelessWidget {
 
     //todo if the user is logged in return the dashboard
     if (user != null) {
-      return TrainersScreenView();
+      return HomeScreenView();
+      //check if the user completed its profile
+      //check if the user is a teacher => trainersDashboard
+
     } else {
       return HomeScreenView();
     }

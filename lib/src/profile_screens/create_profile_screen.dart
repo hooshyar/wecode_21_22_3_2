@@ -6,9 +6,11 @@
 //set data
 // read the data and get an approve from the user
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/constants/style.dart';
+import 'package:wecode_2021/src/data_models/general_user.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 
 class CreateProfileScreen extends StatefulWidget {
@@ -89,21 +91,21 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               _formGlobalKey.currentState!.validate();
 
                           if (_isValidated == true) {
-                            //todo write to the /users/ collection using add
-                            //todo write to the /users/ collection using set
-                            //the document ID has to be the users UID
+                            //make our job easier
+                            GeneralUser _generalUser = GeneralUser(
+                              uid: _authProvider.theUser!.uid,
+                              email: _authProvider.theUser!.email,
+                              name: _nameController.value.text,
+                              phoneNumber: _phoneNumberController.value.text,
+                              bootCampName: _bootCampNameController.value.text,
+                              bootCampId: _bootCampIdController.value.text,
+                            );
+
                             await FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(_authProvider.theUser!.uid)
-                                .set({
-                              'uid': _authProvider.theUser!.uid,
-                              'email': _authProvider.theUser!.email,
-                              'name': _nameController.value.text,
-                              'phoneNumber': _phoneNumberController.value.text,
-                              'date': Timestamp.fromDate(DateTime.now()),
-                              'bootCampName':
-                                  _bootCampNameController.value.text,
-                            }, SetOptions(merge: true));
+                                .set(_generalUser.toMap(),
+                                    SetOptions(merge: true));
                             //     .collection('users')
                             //     .add({
                             //   'name': "wha",
@@ -111,8 +113,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             //   'bootCampId': "whad",
                             // }).catchError((e) => debugPrint(e.toString()));
                           }
-                          //to add/set record to the firestore
-                          setState(() {});
                         },
                         child: Text('Create it!'))),
                 Text('Name: ' +
@@ -120,6 +120,36 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                     'bootCampId: ' +
                     'phone: ' +
                     _phoneNumberController.value.text),
+                Container(
+                  height: 150,
+                  color: Colors.grey,
+                  child: FutureBuilder<QuerySnapshot>(
+                    future:
+                        FirebaseFirestore.instance.collection('users').get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('error');
+                      } else if (!snapshot.hasData || snapshot.data == null) {
+                        return Text('empty');
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.done) {
+                        List<DocumentSnapshot> _docs = snapshot.data!.docs;
+
+                        List<GeneralUser> _users = _docs
+                            .map((e) => GeneralUser.fromMap(
+                                e.data() as Map<String, dynamic>))
+                            .toList();
+
+                        return ListView.builder(
+                            itemCount: _users.length,
+                            itemBuilder: (context, index) {
+                              return Text(_users[index].name ?? 'no name');
+                            });
+                      }
+                      return LinearProgressIndicator();
+                    },
+                  ),
+                )
               ],
             )),
       ),

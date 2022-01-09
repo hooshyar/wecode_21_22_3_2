@@ -65,8 +65,32 @@ class HomeScreenView extends StatelessWidget {
               ),
             ),
 
-            //show this only to logged in users
+            Provider.of<AuthService>(context).theUser == null
+                ? Container()
+                :
+                // to create a profile
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.amber,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed('/createProfileScreen');
+                              },
+                              child: Text('Create Profile')),
+                        ),
+                      ],
+                    ),
+                  ),
 
+            //show this only to logged in users
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(

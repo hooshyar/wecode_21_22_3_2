@@ -34,4 +34,42 @@ class GeneralUser {
       this.stackOverflow,
       this.thumbsUps,
       this.updatedAt});
+
+  // from map which reads the data from the database
+
+  factory GeneralUser.fromMap(Map<String, dynamic> json) => GeneralUser(
+      uid: json["uid"],
+      name: json["name"],
+      email: json["email"],
+      bootCampId: json["bootCampId"],
+      bootCampName: json["bootCampName"],
+      createdAt: json["createdAt"],
+      github: json["github"],
+      imgUrl: json["imgUrl"],
+      isAdmin: json["isAdmin"],
+      isTeacher: json["isTeacher"],
+      phoneNumber: json["phoneNumber"],
+      points: json["points"],
+      stackOverflow: json["stackOverflow"],
+      thumbsUps: json["thumbsUps"],
+      updatedAt: json["updatedAt"]);
+
+  // toMap()
+  Map<String, dynamic> toMap() => {
+        "uid": uid,
+        "name": name,
+        "email": email,
+        "bootCampId": bootCampId,
+        "bootCampName": bootCampName,
+        "createdAt": createdAt,
+        "github": github,
+        "imgUrl": imgUrl,
+        "isAdmin": isAdmin,
+        "isTeacher": isTeacher,
+        "phoneNumber": phoneNumber,
+        "points": points,
+        "stackOverflow": stackOverflow,
+        "thumbsUps": thumbsUps,
+        "updatedAt": updatedAt,
+      };
 }

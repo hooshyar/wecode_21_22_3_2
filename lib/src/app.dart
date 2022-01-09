@@ -28,9 +28,10 @@ class AppView extends StatelessWidget {
           )),
       initialRoute: '/',
       routes: {
-        '/': (context) => CreateProfileScreen(), //this was the Auth handler
+        '/': (context) => AuthHandler(), //this was the Auth handler
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
+        '/createProfileScreen': (context) => CreateProfileScreen(),
         '/studentScreen': (context) => StudentScreen(),
         '/trainersScreen': (context) => TrainersScreenView(),
         '/privacyPolicyScreen': (context) => PrivacyPolicyScreen()
