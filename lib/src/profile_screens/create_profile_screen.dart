@@ -131,7 +131,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                 .collection('users')
                                 .doc(_authProvider.theUser!.uid)
                                 .set(_generalUser.toMap(),
-                                    SetOptions(merge: true));
+                                    SetOptions(merge: true))
+                                .then((value) =>
+                                    Navigator.pushNamed(context, '/'));
                             //     .collection('users')
                             //     .add({
                             //   'name': "wha",

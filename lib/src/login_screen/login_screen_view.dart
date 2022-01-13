@@ -73,8 +73,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   icon: Icon(
                     Icons.login,
                   ),
-                  label: Text('Login'),
+                  label: Text(
+                    'Login',
+                  ),
                 ),
+
+                //error
+                Provider.of<AuthService>(context).theError == null
+                    ? Container()
+                    : Container(
+                        child: Text(
+                          Provider.of<AuthService>(context).theError!,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
                 SizedBox(
                   height: 50,
                 ),

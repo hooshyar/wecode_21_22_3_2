@@ -9,6 +9,13 @@ class AuthService extends ChangeNotifier {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   GeneralUser? generalUser;
+  String? theError;
+
+  //a void func to set the error message
+  void setTheError(String? err) {
+    theError = err;
+    notifyListeners();
+  }
 
   // a void func which updates the value of the generalUser
   void setTheGeneralUser(GeneralUser theGUser) {
@@ -42,20 +49,31 @@ class AuthService extends ChangeNotifier {
 // todo error handling
   Future<UserCredential?> registerWithEmailAndPassword(
       String email, String password) async {
-    UserCredential theUserCredentials = await _firebaseAuth
-        .createUserWithEmailAndPassword(email: email, password: password);
-    setTheUser(theUserCredentials.user);
-    return theUserCredentials;
+    try {
+      UserCredential theUserCredentials = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      setTheUser(theUserCredentials.user);
+      setTheError(null);
+      return theUserCredentials;
+    } on FirebaseAuthException catch (e) {
+      setTheError(e.message);
+    }
   }
 
 //method to login the user using email and password
 // error handling
   Future<UserCredential?> loginWithEmailAndPassword(
       String email, String password) async {
-    UserCredential theUserCredentials = await _firebaseAuth
-        .signInWithEmailAndPassword(email: email, password: password);
-    setTheUser(theUserCredentials.user);
-    return theUserCredentials;
+    try {
+      UserCredential theUserCredentials = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+      setTheUser(theUserCredentials.user);
+      setTheError(null);
+      return theUserCredentials;
+    } on FirebaseAuthException catch (err) {
+      setTheError(err.message!);
+      debugPrint("==========>>>>>>" + err.message!);
+    }
   }
 
   // logout method

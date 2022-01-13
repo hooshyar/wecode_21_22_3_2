@@ -66,6 +66,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   label: Text('Sign up'),
                 ),
+                //error
+                Provider.of<AuthService>(context).theError == null
+                    ? Container()
+                    : Container(
+                        child: Text(
+                          Provider.of<AuthService>(context).theError!,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
                 SizedBox(
                   height: 50,
                 ),

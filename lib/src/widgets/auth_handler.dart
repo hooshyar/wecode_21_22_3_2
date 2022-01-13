@@ -32,7 +32,13 @@ class AuthHandler extends StatelessWidget {
     if (user != null) {
       return Scaffold(
         backgroundColor: Colors.amber,
-        appBar: AppBar(),
+        // appBar: AppBar(title: Text('AuthHandler'), actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         Provider.of<AuthService>(context, listen: false).logOut();
+        //       },
+        //       icon: Icon(Icons.logout)),
+        // ]),
         body: FutureBuilder(
           future: Provider.of<AuthService>(context, listen: false)
               .fetchUserInfo(user.uid),
@@ -40,20 +46,16 @@ class AuthHandler extends StatelessWidget {
             if (!snapshot.hasData) {
               return CircularProgressIndicator();
             } else if (snapshot.hasError) {
-              debugPrint('42');
               return Text(snapshot.error.toString());
             } else if (snapshot.data == null) {
-              debugPrint('45');
               return Text('empty');
             } else if (snapshot.data == false) {
-              debugPrint('48');
               return CreateProfileScreen();
             } else if (snapshot.data == true &&
                 Provider.of<AuthService>(context)
                         .generalUser!
                         .isCompletedProfile ==
                     false) {
-              debugPrint('55');
               return CreateProfileScreen();
             } else if (snapshot.data == true &&
                 Provider.of<AuthService>(context)
@@ -63,17 +65,15 @@ class AuthHandler extends StatelessWidget {
               //is teacher  or is student
               if (Provider.of<AuthService>(context).generalUser!.isTeacher ==
                   true) {
-                debugPrint('66');
-                return Text('66');
-                // return TrainersScreenView();
+                // return Text('66');
+                return TrainersScreenView();
               } else {
-                debugPrint('69');
                 // return Text('69');
                 return StudentScreen();
               }
             }
-            debugPrint('73');
-            return CreateProfileScreen();
+
+            return StudentScreen();
           },
         ),
       );
