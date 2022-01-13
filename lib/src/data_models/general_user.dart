@@ -6,6 +6,7 @@ class GeneralUser {
   String? email;
   String? github;
   String? stackOverflow;
+  String? linkedIn;
   int? points;
   int? thumbsUps;
   String? imgUrl; // Firebase Storage
@@ -31,8 +32,10 @@ class GeneralUser {
       this.isTeacher,
       this.phoneNumber,
       this.points,
+      this.linkedIn,
       this.stackOverflow,
       this.thumbsUps,
+      this.isCompletedProfile,
       this.updatedAt});
 
   // from map which reads the data from the database
@@ -51,7 +54,9 @@ class GeneralUser {
       phoneNumber: json["phoneNumber"],
       points: json["points"],
       stackOverflow: json["stackOverflow"],
+      linkedIn: json["linkedIn"],
       thumbsUps: json["thumbsUps"],
+      isCompletedProfile: json["isCompletedProfile"],
       updatedAt: json["updatedAt"]);
 
   // toMap()
@@ -69,7 +74,10 @@ class GeneralUser {
         "phoneNumber": phoneNumber,
         "points": points,
         "stackOverflow": stackOverflow,
+        "linkedIn": linkedIn,
         "thumbsUps": thumbsUps,
+        "isCompletedProfile":
+            isCompletedProfile, // this has to be true when user completed their profile
         "updatedAt": updatedAt,
       };
 }

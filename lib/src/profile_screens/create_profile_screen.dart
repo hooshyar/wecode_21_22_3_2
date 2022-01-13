@@ -31,6 +31,10 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   final TextEditingController _bootCampNameController = TextEditingController();
 
+  final TextEditingController _linkedInController = TextEditingController();
+
+  final TextEditingController _githubController = TextEditingController();
+
   //todo we want to save the email address and the UID as well
   @override
   Widget build(BuildContext context) {
@@ -82,6 +86,20 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 const SizedBox(
                   height: 15,
                 ),
+                TextFormField(
+                  controller: _linkedInController,
+                  decoration: generalInputDecoration(labelText: 'Linkedin'),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  controller: _githubController,
+                  decoration: generalInputDecoration(labelText: 'Github'),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
                 Container(
                     height: 60,
                     width: 200,
@@ -99,6 +117,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               phoneNumber: _phoneNumberController.value.text,
                               bootCampName: _bootCampNameController.value.text,
                               bootCampId: _bootCampIdController.value.text,
+                              github: _githubController.value.text,
+                              linkedIn: _linkedInController.value.text,
+                              isCompletedProfile: _bootCampNameController
+                                          .value.text.isNotEmpty ||
+                                      _bootCampIdController
+                                          .value.text.isNotEmpty
+                                  ? true
+                                  : false,
                             );
 
                             await FirebaseFirestore.instance
@@ -121,38 +147,39 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                     'phone: ' +
                     _phoneNumberController.value.text),
                 Divider(),
-                Text('List of users using Futures:'),
-                Container(
-                  height: 80,
-                  color: Colors.grey[300],
-                  child: FutureBuilder<QuerySnapshot>(
-                    future:
-                        FirebaseFirestore.instance.collection('users').get(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text('error');
-                      } else if (!snapshot.hasData || snapshot.data == null) {
-                        return Text('empty');
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.done) {
-                        List<DocumentSnapshot> _docs = snapshot.data!.docs;
+                // Text('List of users using Futures:'),
+                // Container(
+                //   height: 80,
+                //   color: Colors.grey[300],
+                //   child: FutureBuilder<QuerySnapshot>(
+                //     future:
+                //         FirebaseFirestore.instance.collection('users').get(),
+                //     builder: (context, snapshot) {
+                //       if (snapshot.hasError) {
+                //         return Text('error');
+                //       } else if (!snapshot.hasData || snapshot.data == null) {
+                //         return Text('empty');
+                //       } else if (snapshot.connectionState ==
+                //           ConnectionState.done) {
+                //         List<DocumentSnapshot> _docs = snapshot.data!.docs;
 
-                        List<GeneralUser> _users = _docs
-                            .map((e) => GeneralUser.fromMap(
-                                e.data() as Map<String, dynamic>))
-                            .toList();
+                //         List<GeneralUser> _users = _docs
+                //             .map((e) => GeneralUser.fromMap(
+                //                 e.data() as Map<String, dynamic>))
+                //             .toList();
 
-                        return ListView.builder(
-                            itemCount: _users.length,
-                            itemBuilder: (context, index) {
-                              return Text(_users[index].name ?? 'no name');
-                            });
-                      }
-                      return LinearProgressIndicator();
-                    },
-                  ),
-                ),
-                Divider(),
+                //         return ListView.builder(
+                //             itemCount: _users.length,
+                //             itemBuilder: (context, index) {
+                //               return Text(_users[index].name ?? 'no name');
+                //             });
+                //       }
+                //       return LinearProgressIndicator();
+                //     },
+                //   ),
+                // ),
+                // Divider(),
+
                 Text('List of users using Stream:'),
                 Container(
                     height: 80,

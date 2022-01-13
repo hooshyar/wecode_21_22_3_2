@@ -1,9 +1,34 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:wecode_2021/src/data_models/general_user.dart';
 
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
+  GeneralUser? generalUser;
+
+  // a void func which updates the value of the generalUser
+  void setTheGeneralUser(GeneralUser theGUser) {
+    generalUser = theGUser;
+    notifyListeners();
+  }
+
+  Future<bool> fetchUserInfo(String uid) async {
+    DocumentSnapshot _userSnap =
+        await _firebaseFirestore.collection('users').doc(uid).get();
+    if (_userSnap.exists) {
+      //map the data to a general_user data model
+      GeneralUser _generalUser =
+          GeneralUser.fromMap(_userSnap.data() as Map<String, dynamic>);
+      setTheGeneralUser(_generalUser);
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   User? theUser = FirebaseAuth
       .instance.currentUser; //to have the current user as the initial value
