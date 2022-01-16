@@ -157,7 +157,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
                                 if (_isValidated == true &&
                                     _authProvider.theUser != null) {
-                                  uploadTheSelectedFile(
+                                  await uploadTheSelectedFile(
                                       _authProvider.theUser!.uid);
                                   //make our job easier
                                   GeneralUser _generalUser = GeneralUser(
@@ -172,13 +172,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                         _bootCampIdController.value.text,
                                     github: _githubController.value.text,
                                     linkedIn: _linkedInController.value.text,
+                                    createdAt: Timestamp.now(),
                                     isCompletedProfile: _bootCampNameController
                                                 .value.text.isNotEmpty ||
                                             _bootCampIdController
                                                 .value.text.isNotEmpty
                                         ? true
                                         : false,
-                                    // imgUrl: _theDlUrl ?? 'empty',
+                                    imgUrl: _theDlUrl,
                                   );
 
                                   await FirebaseFirestore.instance

@@ -8,13 +8,13 @@ class StudentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text('AuthHandler'), actions: [
-      //   IconButton(
-      //       onPressed: () {
-      //         Provider.of<AuthService>(context, listen: false).logOut();
-      //       },
-      //       icon: Icon(Icons.logout)),
-      // ]),
+      appBar: AppBar(title: Text('AuthHandler'), actions: [
+        IconButton(
+            onPressed: () {
+              Provider.of<AuthService>(context, listen: false).logOut();
+            },
+            icon: Icon(Icons.logout)),
+      ]),
       body: Center(
         child: Text('student screen'),
       ),
