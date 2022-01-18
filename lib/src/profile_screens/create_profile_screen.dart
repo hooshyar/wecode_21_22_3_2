@@ -32,16 +32,12 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   String? _theDlUrl;
 
   final _formGlobalKey = GlobalKey<FormState>(); // the form key
+
   final TextEditingController _nameController = TextEditingController();
-
   final TextEditingController _phoneNumberController = TextEditingController();
-
   final TextEditingController _bootCampIdController = TextEditingController();
-
   final TextEditingController _bootCampNameController = TextEditingController();
-
   final TextEditingController _linkedInController = TextEditingController();
-
   final TextEditingController _githubController = TextEditingController();
 
   //todo we want to save the email address and the UID as well
