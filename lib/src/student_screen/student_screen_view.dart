@@ -133,12 +133,32 @@ class StudentScreen extends StatelessWidget {
                     child: Container(
                       child: SafeArea(
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            _generalBoxButton(
-                                icon: Icon(
-                              FontAwesomeIcons.linkedin,
-                              color: Colors.blue,
-                            ))
+                             _authProvider.generalUser!.linkedIn == null
+                              ? Container()
+                              : _generalBoxButton(
+                                  url: _authProvider.generalUser!.linkedIn!,
+                                    icon: Icon(
+                                  FontAwesomeIcons.linkedin,
+                                  color: Colors.blue,
+                                )),
+                          
+                              _authProvider.generalUser!.stackOverflow == null
+                              ? Container()
+                              : _generalBoxButton(
+                                  url: _authProvider.generalUser!.stackOverflow!,
+                                    icon: Icon(
+                                  FontAwesomeIcons.stackOverflow,
+                                  color: Colors.blue,
+                                )),  _authProvider.generalUser!.github== null
+                              ? Container()
+                              : _generalBoxButton(
+                                  url: _authProvider.generalUser!.github!,
+                                    icon: Icon(
+                                  FontAwesomeIcons.github,
+                                  color: Colors.blue,
+                                )),
                           ],
                         ),
                       ),
@@ -193,16 +213,22 @@ class StudentScreen extends StatelessWidget {
   }
 
   Widget _generalBoxButton(
-      {required Icon icon, Color? color = Colors.blue, onPressed}) {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.only(right: 25, left: 25, bottom: 10),
-      child: IconButton(
-        icon: icon,
-        iconSize: 42,
-        color: color,
-        onPressed: onPressed,
-      ),
-    );
+      {required String url, required Icon icon, Color? color = Colors.blue}) {
+
+      return Container(
+        height: 50,
+        margin: EdgeInsets.only(right: 25, left: 25, bottom: 10),
+        child: IconButton(
+          icon: icon,
+          iconSize: 42,
+          color: color,
+          onPressed: () async {
+            await canLaunch(url) == true
+                ? launch(url)
+                : debugPrint('can not launch');
+          },
+        ),
+      );
+    
   }
 }
