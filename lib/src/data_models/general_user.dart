@@ -7,6 +7,9 @@ class GeneralUser {
   String? github;
   String? stackOverflow;
   String? linkedIn;
+  String? title;
+  String? bio;
+  String? location;
   int? points;
   int? thumbsUps;
   String? imgUrl; // Firebase Storage
@@ -14,6 +17,7 @@ class GeneralUser {
   bool? isTeacher; //if it is a teacher
   bool? isAdmin; //if it is an Admin
   bool? isCompletedProfile; //if the user completed the profile
+  bool? isLookingForAJob; //if the user is looking for a job
   Timestamp? createdAt;
   Timestamp? updatedAt;
   String? bootCampId;
@@ -36,7 +40,11 @@ class GeneralUser {
       this.stackOverflow,
       this.thumbsUps,
       this.isCompletedProfile,
-      this.updatedAt});
+      this.updatedAt,
+      this.bio,
+      this.isLookingForAJob,
+      this.location,
+      this.title});
 
   // from map which reads the data from the database
 
@@ -57,6 +65,10 @@ class GeneralUser {
       linkedIn: json["linkedIn"],
       thumbsUps: json["thumbsUps"],
       isCompletedProfile: json["isCompletedProfile"],
+      title: json["title"],
+      location: json["location"],
+      isLookingForAJob: json["isLookingForAJob"],
+      bio: json["bio"],
       updatedAt: json["updatedAt"]);
 
   // toMap()
@@ -79,5 +91,9 @@ class GeneralUser {
         "isCompletedProfile":
             isCompletedProfile, // this has to be true when user completed their profile
         "updatedAt": updatedAt,
+        "bio": bio,
+        "location": location,
+        "isLookingForAJob": isLookingForAJob,
+        "title": title,
       };
 }

@@ -38,6 +38,9 @@ dependencies:
     sdk: flutter
   google_fonts: ^2.1.1
   http: ^0.13.4
+  font_awesome_flutter: ^9.2.0
+  cached_network_image: ^3.2.0
+  url_launcher: ^6.0.18
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

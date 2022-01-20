@@ -66,7 +66,7 @@ class AuthHandler extends StatelessWidget {
               if (Provider.of<AuthService>(context).generalUser!.isTeacher ==
                   true) {
                 // return Text('66');
-                return TrainersScreenView();
+                return TrainersScreenView(); // change it to trainer
               } else {
                 // return Text('69');
                 return StudentScreen();

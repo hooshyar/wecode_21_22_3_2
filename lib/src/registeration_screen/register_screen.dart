@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wecode_2021/src/constants/style.dart';
 import 'package:wecode_2021/src/providers/nameProvider.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
-import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
+
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {

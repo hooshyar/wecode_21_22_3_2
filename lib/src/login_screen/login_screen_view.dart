@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/constants/style.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
-import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

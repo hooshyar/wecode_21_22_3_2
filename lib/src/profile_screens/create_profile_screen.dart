@@ -30,6 +30,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   XFile? _selectedProfileImg;
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   String? _theDlUrl;
+  bool _isLoading = false;
 
   final _formGlobalKey = GlobalKey<FormState>(); // the form key
 
@@ -49,230 +50,249 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
       appBar: AppBar(
         title: Text('Create your profile'),
       ),
-      body: Container(
-        // padding: EdgeInsets.all(20),
-        margin: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            _selectedProfileImg == null
-                ? Container(
-                    height: 120,
-                    width: 120,
-                    decoration: BoxDecoration(color: Colors.blue),
-                  )
-                : Container(
-                    height: 120,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: _selectedProfileImg == null ? Colors.blue : null,
-                      image: DecorationImage(
-                        image: FileImage(
-                          File(_selectedProfileImg!.path),
+      body: _isLoading == true
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              // padding: EdgeInsets.all(20),
+              margin: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  _selectedProfileImg == null
+                      ? Container(
+                          height: 120,
+                          width: 120,
+                          decoration: BoxDecoration(color: Colors.blue),
+                        )
+                      : Container(
+                          height: 120,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            color: _selectedProfileImg == null
+                                ? Colors.blue
+                                : null,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(_selectedProfileImg!.path),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        // add image picker package
+                        _selectedProfileImg = await _imagePicker.pickImage(
+                            source: ImageSource.gallery);
+
+                        // debugPrint("===========>>>" + _selectedProfileImg!.path);
+                        setState(() {});
+                        // pick an image from the gallery
+                      },
+                      child: Text('select profile image')),
+                  const SizedBox(
+                    height: 15,
                   ),
-            ElevatedButton(
-                onPressed: () async {
-                  // add image picker package
-                  _selectedProfileImg =
-                      await _imagePicker.pickImage(source: ImageSource.gallery);
-
-                  // debugPrint("===========>>>" + _selectedProfileImg!.path);
-                  setState(() {});
-                  // pick an image from the gallery
-                },
-                child: Text('select profile image')),
-            const SizedBox(
-              height: 15,
-            ),
-            Expanded(
-              child: Form(
-                  key: _formGlobalKey,
-                  child: ListView(
-                    children: [
-                      TextFormField(
-                        controller: _nameController,
-                        decoration: generalInputDecoration(labelText: 'name'),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        controller: _phoneNumberController,
-                        decoration:
-                            generalInputDecoration(labelText: 'phone Number'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'the phone number is required';
-                          } else
-                            return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        controller: _bootCampNameController,
-                        decoration:
-                            generalInputDecoration(labelText: 'bootcamp name'),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        controller: _bootCampIdController,
-                        decoration:
-                            generalInputDecoration(labelText: 'bootcamp ID'),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        controller: _linkedInController,
-                        decoration:
-                            generalInputDecoration(labelText: 'Linkedin'),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        controller: _githubController,
-                        decoration: generalInputDecoration(labelText: 'Github'),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Container(
-                          height: 60,
-                          width: 200,
-                          child: ElevatedButton(
-                              onPressed: () async {
-                                bool _isValidated =
-                                    _formGlobalKey.currentState!.validate();
-
-                                if (_isValidated == true &&
-                                    _authProvider.theUser != null) {
-                                  await uploadTheSelectedFile(
-                                      _authProvider.theUser!.uid);
-                                  //make our job easier
-                                  GeneralUser _generalUser = GeneralUser(
-                                    uid: _authProvider.theUser!.uid,
-                                    email: _authProvider.theUser!.email,
-                                    name: _nameController.value.text,
-                                    phoneNumber:
-                                        _phoneNumberController.value.text,
-                                    bootCampName:
-                                        _bootCampNameController.value.text,
-                                    bootCampId:
-                                        _bootCampIdController.value.text,
-                                    github: _githubController.value.text,
-                                    linkedIn: _linkedInController.value.text,
-                                    createdAt: Timestamp.now(),
-                                    isCompletedProfile: _bootCampNameController
-                                                .value.text.isNotEmpty ||
-                                            _bootCampIdController
-                                                .value.text.isNotEmpty
-                                        ? true
-                                        : false,
-                                    imgUrl: _theDlUrl,
-                                  );
-
-                                  await FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(_authProvider.theUser!.uid)
-                                      .set(_generalUser.toMap(),
-                                          SetOptions(merge: true))
-                                      .then((value) =>
-                                          Navigator.pushNamed(context, '/'));
-                                  //     .collection('users')
-                                  //     .add({
-                                  //   'name': "wha",
-                                  //   'email': 00121212,
-                                  //   'bootCampId': "whad",
-                                  // }).catchError((e) => debugPrint(e.toString()));
-                                }
+                  Expanded(
+                    child: Form(
+                        key: _formGlobalKey,
+                        child: ListView(
+                          children: [
+                            TextFormField(
+                              controller: _nameController,
+                              decoration:
+                                  generalInputDecoration(labelText: 'name'),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            TextFormField(
+                              controller: _phoneNumberController,
+                              decoration: generalInputDecoration(
+                                  labelText: 'phone Number'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'the phone number is required';
+                                } else
+                                  return null;
                               },
-                              child: Text('Create it!'))),
-                      Text('Name: ' +
-                          _nameController.value.text +
-                          'bootCampId: ' +
-                          'phone: ' +
-                          _phoneNumberController.value.text),
-                      Divider(),
-                      // Text('List of users using Futures:'),
-                      // Container(
-                      //   height: 80,
-                      //   color: Colors.grey[300],
-                      //   child: FutureBuilder<QuerySnapshot>(
-                      //     future:
-                      //         FirebaseFirestore.instance.collection('users').get(),
-                      //     builder: (context, snapshot) {
-                      //       if (snapshot.hasError) {
-                      //         return Text('error');
-                      //       } else if (!snapshot.hasData || snapshot.data == null) {
-                      //         return Text('empty');
-                      //       } else if (snapshot.connectionState ==
-                      //           ConnectionState.done) {
-                      //         List<DocumentSnapshot> _docs = snapshot.data!.docs;
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            TextFormField(
+                              controller: _bootCampNameController,
+                              decoration: generalInputDecoration(
+                                  labelText: 'bootcamp name'),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            TextFormField(
+                              controller: _bootCampIdController,
+                              decoration: generalInputDecoration(
+                                  labelText: 'bootcamp ID'),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            TextFormField(
+                              controller: _linkedInController,
+                              decoration:
+                                  generalInputDecoration(labelText: 'Linkedin'),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            TextFormField(
+                              controller: _githubController,
+                              decoration:
+                                  generalInputDecoration(labelText: 'Github'),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                                height: 60,
+                                width: 200,
+                                child: ElevatedButton(
+                                    onPressed: () async {
+                                      setState(() {
+                                        _isLoading = true;
+                                        debugPrint(_isLoading.toString());
+                                      });
 
-                      //         List<GeneralUser> _users = _docs
-                      //             .map((e) => GeneralUser.fromMap(
-                      //                 e.data() as Map<String, dynamic>))
-                      //             .toList();
+                                      bool _isValidated = _formGlobalKey
+                                          .currentState!
+                                          .validate();
 
-                      //         return ListView.builder(
-                      //             itemCount: _users.length,
-                      //             itemBuilder: (context, index) {
-                      //               return Text(_users[index].name ?? 'no name');
-                      //             });
-                      //       }
-                      //       return LinearProgressIndicator();
-                      //     },
-                      //   ),
-                      // ),
-                      // Divider(),
+                                      if (_isValidated == true &&
+                                          _authProvider.theUser != null) {
+                                        await uploadTheSelectedFile(
+                                            _authProvider.theUser!.uid);
+                                        //make our job easier
+                                        GeneralUser _generalUser = GeneralUser(
+                                          uid: _authProvider.theUser!.uid,
+                                          email: _authProvider.theUser!.email,
+                                          name: _nameController.value.text,
+                                          phoneNumber:
+                                              _phoneNumberController.value.text,
+                                          bootCampName: _bootCampNameController
+                                              .value.text,
+                                          bootCampId:
+                                              _bootCampIdController.value.text,
+                                          github: _githubController.value.text,
+                                          linkedIn:
+                                              _linkedInController.value.text,
+                                          createdAt: Timestamp.now(),
+                                          isCompletedProfile:
+                                              _bootCampNameController.value.text
+                                                          .isNotEmpty ||
+                                                      _bootCampIdController
+                                                          .value.text.isNotEmpty
+                                                  ? true
+                                                  : false,
+                                          imgUrl: _theDlUrl,
+                                        );
 
-                      Text('List of users using Stream:'),
-                      Container(
-                          height: 80,
-                          color: Colors.amber[300],
-                          child: StreamBuilder<QuerySnapshot>(
-                              stream: FirebaseFirestore.instance
-                                  .collection('users')
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) {
-                                  return Text('error');
-                                } else if (!snapshot.hasData ||
-                                    snapshot.data == null) {
-                                  return Text('empty');
-                                } else if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return LinearProgressIndicator();
-                                }
+                                        await FirebaseFirestore.instance
+                                            .collection('users')
+                                            .doc(_authProvider.theUser!.uid)
+                                            .set(_generalUser.toMap(),
+                                                SetOptions(merge: true))
+                                            .then((value) {
+                                          setState(() {
+                                            _isLoading = false;
+                                            debugPrint(_isLoading.toString());
+                                          });
+                                          Navigator.pushNamed(context, '/');
+                                        });
+                                        //     .collection('users')
+                                        //     .add({
+                                        //   'name': "wha",
+                                        //   'email': 00121212,
+                                        //   'bootCampId': "whad",
+                                        // }).catchError((e) => debugPrint(e.toString()));
+                                      }
+                                    },
+                                    child: Text('Create it!'))),
+                            Text('Name: ' +
+                                _nameController.value.text +
+                                'bootCampId: ' +
+                                'phone: ' +
+                                _phoneNumberController.value.text),
+                            Divider(),
+                            // Text('List of users using Futures:'),
+                            // Container(
+                            //   height: 80,
+                            //   color: Colors.grey[300],
+                            //   child: FutureBuilder<QuerySnapshot>(
+                            //     future:
+                            //         FirebaseFirestore.instance.collection('users').get(),
+                            //     builder: (context, snapshot) {
+                            //       if (snapshot.hasError) {
+                            //         return Text('error');
+                            //       } else if (!snapshot.hasData || snapshot.data == null) {
+                            //         return Text('empty');
+                            //       } else if (snapshot.connectionState ==
+                            //           ConnectionState.done) {
+                            //         List<DocumentSnapshot> _docs = snapshot.data!.docs;
 
-                                List<DocumentSnapshot> _docs =
-                                    snapshot.data!.docs;
+                            //         List<GeneralUser> _users = _docs
+                            //             .map((e) => GeneralUser.fromMap(
+                            //                 e.data() as Map<String, dynamic>))
+                            //             .toList();
 
-                                List<GeneralUser> _users = _docs
-                                    .map((e) => GeneralUser.fromMap(
-                                        e.data() as Map<String, dynamic>))
-                                    .toList();
+                            //         return ListView.builder(
+                            //             itemCount: _users.length,
+                            //             itemBuilder: (context, index) {
+                            //               return Text(_users[index].name ?? 'no name');
+                            //             });
+                            //       }
+                            //       return LinearProgressIndicator();
+                            //     },
+                            //   ),
+                            // ),
+                            // Divider(),
 
-                                return ListView.builder(
-                                    itemCount: _users.length,
-                                    itemBuilder: (context, index) {
-                                      return Text(
-                                          _users[index].name ?? 'no name');
-                                    });
-                              })),
-                    ],
-                  )),
+                            Text('List of users using Stream:'),
+                            Container(
+                                height: 80,
+                                color: Colors.amber[300],
+                                child: StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('users')
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasError) {
+                                        return Text('error');
+                                      } else if (!snapshot.hasData ||
+                                          snapshot.data == null) {
+                                        return Text('empty');
+                                      } else if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return LinearProgressIndicator();
+                                      }
+
+                                      List<DocumentSnapshot> _docs =
+                                          snapshot.data!.docs;
+
+                                      List<GeneralUser> _users = _docs
+                                          .map((e) => GeneralUser.fromMap(
+                                              e.data() as Map<String, dynamic>))
+                                          .toList();
+
+                                      return ListView.builder(
+                                          itemCount: _users.length,
+                                          itemBuilder: (context, index) {
+                                            return Text(_users[index].name ??
+                                                'no name');
+                                          });
+                                    })),
+                          ],
+                        )),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
     );
   }
 
