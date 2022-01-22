@@ -44,9 +44,9 @@ class AuthHandler extends StatelessWidget {
               .fetchUserInfo(user.uid),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
+              return Center(child: Text(snapshot.error.toString()));
             } else if (snapshot.data == null) {
               return Text('empty');
             } else if (snapshot.data == false) {
