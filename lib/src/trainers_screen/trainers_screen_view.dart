@@ -21,22 +21,62 @@ class TrainersScreenView extends StatelessWidget {
                   },
                   icon: Icon(Icons.logout)),
             ]),
-            body: GridView.builder(
-              physics: BouncingScrollPhysics(),
-              // shrinkWrap: true,
-              padding: const EdgeInsets.all(10.0),
-              itemCount: _allUsers.length,
-              itemBuilder: (contex, index) {
-                return PersonCardWidget(theUser: _allUsers[index]);
-              },
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 4 / 5,
-                crossAxisSpacing: 13,
-                mainAxisSpacing: 13,
-              ),
+            floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  return _showMaterialDialog(context);
+                },
+                child: Text('data')),
+            body: Column(
+              children: [
+                ElevatedButton(
+                    onPressed: () => _showMaterialDialog(context),
+                    child: Text('dialog')),
+                Expanded(
+                  child: GridView.builder(
+                    physics: BouncingScrollPhysics(),
+                    // shrinkWrap: true,
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: _allUsers.length,
+                    itemBuilder: (contex, index) {
+                      return PersonCardWidget(theUser: _allUsers[index]);
+                    },
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 4 / 5,
+                      crossAxisSpacing: 13,
+                      mainAxisSpacing: 13,
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
+  }
+
+  void _showMaterialDialog(context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Material Dialog'),
+            content: Text('Hey! I am Coflutter!'),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // _dismissDialog();
+                  },
+                  child: Text('Close')),
+              TextButton(
+                onPressed: () {
+                  print('HelloWorld!');
+                  // _dismissDialog();
+                },
+                child: Text('HelloWorld!'),
+              )
+            ],
+          );
+        });
   }
 }
 
