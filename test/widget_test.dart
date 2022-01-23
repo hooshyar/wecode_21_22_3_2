@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:wecode_2021/main.dart';
 import 'package:wecode_2021/src/app.dart';
 
 void main() {

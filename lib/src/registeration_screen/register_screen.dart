@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wecode_2021/src/constants/style.dart';
-import 'package:wecode_2021/src/providers/nameProvider.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 
 import 'package:provider/provider.dart';
