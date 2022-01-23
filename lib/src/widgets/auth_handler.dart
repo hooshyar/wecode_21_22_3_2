@@ -66,14 +66,21 @@ class AuthHandler extends StatelessWidget {
               if (Provider.of<AuthService>(context).generalUser!.isTeacher ==
                   true) {
                 // return Text('66');
+
                 return TrainersScreenView(); // change it to trainer
               } else {
+                debugPrint('student 2');
                 // return Text('69');
-                return StudentScreen();
+                return StudentScreen(
+                  generalUser: Provider.of<AuthService>(context).generalUser,
+                );
               }
             }
-
-            return StudentScreen();
+            debugPrint('student4');
+            // return Text('student');
+            return StudentScreen(
+              generalUser: Provider.of<AuthService>(context).generalUser,
+            );
           },
         ),
       );

@@ -36,6 +36,11 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  Stream<List<GeneralUser>?> fetchAllUsersStream() {
+    return _firebaseFirestore.collection('users').snapshots().map((event) =>
+        event.docs.map((e) => GeneralUser.fromMap(e.data())).toList());
+  }
+
   User? theUser = FirebaseAuth
       .instance.currentUser; //to have the current user as the initial value
 

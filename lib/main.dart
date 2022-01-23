@@ -12,7 +12,8 @@ void main() async {
     MultiProvider(
       child: const AppView(),
       providers: [
-        ChangeNotifierProvider(create: (context) => TheNameProvider()),
+        StreamProvider.value(
+            value: AuthService().fetchAllUsersStream(), initialData: null),
         ChangeNotifierProvider(create: (context) => AuthService()),
       ],
     ),
