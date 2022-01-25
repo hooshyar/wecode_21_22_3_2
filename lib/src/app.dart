@@ -20,9 +20,7 @@ class AppView extends StatelessWidget {
           primaryColor: Colors.red,
           textTheme: TextTheme(
               bodyText1: TextStyle(
-            fontFamily: selectedLang == 'ar'
-                ? GoogleFonts.robotoCondensed().fontFamily
-                : GoogleFonts.roboto().fontFamily,
+            fontSize: 18,
           )),
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.red,
@@ -35,7 +33,7 @@ class AppView extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),
-        '/trainersScreen': (context) => const TrainersScreenView(),
+        '/trainersScreen': (context) => TrainersScreenView(),
         '/privacyPolicyScreen': (context) => const PrivacyPolicyScreen(),
         '/studentDashboard': (context) => StudentDashboard(),
       },

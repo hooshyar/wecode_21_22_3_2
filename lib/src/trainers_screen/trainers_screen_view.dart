@@ -1,82 +1,142 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/data_models/general_user.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
+import 'package:wecode_2021/src/services/firestore_service.dart';
 import 'package:wecode_2021/src/student_screen/student_screen_view.dart';
 
-class TrainersScreenView extends StatelessWidget {
-  const TrainersScreenView({Key? key}) : super(key: key);
+class TrainersScreenView extends StatefulWidget {
+  TrainersScreenView({Key? key}) : super(key: key);
+
+  @override
+  State<TrainersScreenView> createState() => _TrainersScreenViewState();
+}
+
+class _TrainersScreenViewState extends State<TrainersScreenView> {
+  final FirestoreService _firestoreService = FirestoreService();
+
+  TextEditingController _searchController = TextEditingController();
+  String? theSearch;
+  String dropdownValue = 'date'; //bootcoamp name
+  bool canSearch = false;
+
+  @override
+  void initState() {
+    canSearch = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    //
-    List<GeneralUser>? _allUsers = Provider.of<List<GeneralUser>?>(context);
-    return _allUsers == null
-        ? CircularProgressIndicator()
-        : Scaffold(
-            appBar: AppBar(title: Text('Trainer Dashboard'), actions: [
-              IconButton(
-                  onPressed: () {
-                    Provider.of<AuthService>(context, listen: false).logOut();
-                  },
-                  icon: Icon(Icons.logout)),
-            ]),
-            floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  return _showMaterialDialog(context);
-                },
-                child: Text('data')),
-            body: Column(
+    return Scaffold(
+      appBar: AppBar(title: Text('Trainer Dashboard'), actions: [
+        IconButton(
+            onPressed: () {
+              Provider.of<AuthService>(context, listen: false).logOut();
+            },
+            icon: Icon(Icons.logout)),
+      ]),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
-                ElevatedButton(
-                    onPressed: () => _showMaterialDialog(context),
-                    child: Text('dialog')),
                 Expanded(
-                  child: GridView.builder(
-                    physics: BouncingScrollPhysics(),
-                    // shrinkWrap: true,
-                    padding: const EdgeInsets.all(10.0),
-                    itemCount: _allUsers.length,
-                    itemBuilder: (contex, index) {
-                      return PersonCardWidget(theUser: _allUsers[index]);
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                        label: Text('search'), hintText: 'name'),
+                    onChanged: (value) {
+                      if (value.length < 1) {
+                        setState(() {
+                          canSearch = false;
+                          debugPrint(canSearch.toString());
+                        });
+                      } else {
+                        setState(() {
+                          canSearch = true;
+                          debugPrint(canSearch.toString());
+                        });
+                      }
                     },
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 4 / 5,
-                      crossAxisSpacing: 13,
-                      mainAxisSpacing: 13,
-                    ),
                   ),
+                ),
+                IconButton(
+                  onPressed: canSearch == true
+                      ? whatShouldIDO
+                      : null, //if cansearch true return something, else return null
+                  icon: FaIcon(FontAwesomeIcons.search),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'sort by: ',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                    });
+                  },
+                  items: <String>['date', 'bootcamp name']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
               ],
             ),
-          );
+          ),
+          Expanded(
+            child: Container(
+              child: StreamBuilder<List<GeneralUser>>(
+                stream: _firestoreService.streamOfGeneralUsers(
+                    name: theSearch, sortby: dropdownValue),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return LinearProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  return GridView.builder(
+                      itemCount: snapshot.data!.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount:
+                              MediaQuery.of(context).size.width < 500 ? 2 : 4),
+                      itemBuilder: (context, index) {
+                        return PersonCardWidget(theUser: snapshot.data![index]);
+                      });
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
-  void _showMaterialDialog(context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Material Dialog'),
-            content: Text('Hey! I am Coflutter!'),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    // _dismissDialog();
-                  },
-                  child: Text('Close')),
-              TextButton(
-                onPressed: () {
-                  print('HelloWorld!');
-                  // _dismissDialog();
-                },
-                child: Text('HelloWorld!'),
-              )
-            ],
-          );
-        });
+  whatShouldIDO() {
+    setState(() {
+      theSearch = _searchController.value.text;
+    });
   }
 }
 
