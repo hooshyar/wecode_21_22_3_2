@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Job {
   String jobTitle;
   String jobDesc;
-  String jobCreatedAt;
-  String jobDueDate;
+  Timestamp jobCreatedAt;
+  Timestamp jobDueDate;
   String jobCategory;
-  String jobHiresCount;
+  int jobHiresCount;
   num salaryEstimate;
   String companyName;
   num jobLikeCount;
@@ -31,10 +33,10 @@ class Job {
   Job copyWith({
     String? jobTitle,
     String? jobDesc,
-    String? jobCreatedAt,
-    String? jobDueDate,
+    Timestamp? jobCreatedAt,
+    Timestamp? jobDueDate,
     String? jobCategory,
-    String? jobHiresCount,
+    int? jobHiresCount,
     num? salaryEstimate,
     String? companyName,
     num? jobLikeCount,
@@ -79,10 +81,10 @@ class Job {
     return Job(
       jobTitle: map['jobTitle'] ?? '',
       jobDesc: map['jobDesc'] ?? '',
-      jobCreatedAt: map['jobCreatedAt'] ?? '',
-      jobDueDate: map['jobDueDate'] ?? '',
+      jobCreatedAt: map['jobCreatedAt'],
+      jobDueDate: map['jobDueDate'],
       jobCategory: map['jobCategory'] ?? '',
-      jobHiresCount: map['jobHiresCount'] ?? '',
+      jobHiresCount: map['jobHiresCount']?.toInt() ?? 0,
       salaryEstimate: map['salaryEstimate'] ?? 0,
       companyName: map['companyName'] ?? '',
       jobLikeCount: map['jobLikeCount'] ?? 0,

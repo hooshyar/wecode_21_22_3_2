@@ -13,6 +13,7 @@ class FirestoreService {
     }).onError((error, stackTrace) => debugPrint(error.toString()));
   }
 
+//mention that this has to be automatically taken care fo in the backend or using firebase functions
   Future<void> incrementTheViewCount(
       int jobViews, DocumentReference doc) async {
     await doc.update({'jobViews': jobViews++}).then((value) {

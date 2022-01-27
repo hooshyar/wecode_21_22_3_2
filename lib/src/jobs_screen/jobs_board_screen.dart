@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wecode_2021/src/data_models/job_model.dart';
+import 'package:wecode_2021/src/jobs_screen/add_new_job_screen.dart';
 import 'package:wecode_2021/src/services/firestore_service.dart';
 import 'package:wecode_2021/src/widgets/jobs_card_widget.dart';
 
@@ -14,23 +16,19 @@ class _job_screenState extends State<job_screen> {
   final FirestoreService _firestoreService = FirestoreService();
 
   @override
-
-  
-  TextEditingController job_title_Controller = TextEditingController();
-  TextEditingController category_Controller = TextEditingController();
-  TextEditingController company_name_Controller = TextEditingController();
-  TextEditingController job_desc_Controller = TextEditingController();
-  TextEditingController hires_times_Controller = TextEditingController();
-  TextEditingController salary_Controller = TextEditingController();
-  TextEditingController date_valid_Controller = TextEditingController();
-  TextEditingController send_cv_Controller = TextEditingController();
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      floatingActionButton: FloatingActionButton(
+          child: FaIcon(FontAwesomeIcons.plus),
+          onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => NewJobScreen()),
+              )),
       body: Column(
         children: [
           Container(
+            height: 100,
             child: Row(
               children: [
                 Container(
@@ -54,7 +52,9 @@ class _job_screenState extends State<job_screen> {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return JobCardWidget(job: snapshot.data![index]);
+                      return Container(
+                          height: 100,
+                          child: JobCardWidget(job: snapshot.data![index]));
                     },
                   );
                 }),
