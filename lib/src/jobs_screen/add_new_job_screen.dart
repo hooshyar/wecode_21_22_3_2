@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:wecode_2021/src/constants/config.dart';
 import 'package:wecode_2021/src/constants/style.dart';
 
 import 'package:wecode_2021/src/data_models/job_model.dart';
@@ -26,6 +27,8 @@ class _NewJobScreenState extends State<NewJobScreen> {
   TextEditingController date_valid_Controller = TextEditingController();
   TextEditingController send_cv_Controller = TextEditingController();
 
+  DateTime date = DateTime(2022,1,28);
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -38,18 +41,42 @@ class _NewJobScreenState extends State<NewJobScreen> {
           child: Form(
             child: Column(children: [
               SizedBox(height: 15),
+
+             Text('${date.year}/${date.month}/${date.day}'),
+                SizedBox(height: 15),
+
+                ElevatedButton(onPressed: ()async{
+
+                  DateTime? newDAte= await showDatePicker(
+                    context: context,
+                    initialDate: date,
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2040),
+                    );
+
+                }, child: Text("date") ),
+
+
+
               TextFormField(
                 controller: job_title_Controller,
                 keyboardType: TextInputType.text,
                 decoration: generalInputDecoration(labelText: 'Job Title'),
               ),
+
               SizedBox(height: 15),
-              TextFormField(
-                controller: category_Controller,
-                keyboardType: TextInputType.text,
-                decoration: generalInputDecoration(
-                    labelText: 'Category', hintText: 'category'),
-              ),
+
+              DropdownButtonFormField(
+                decoration:generalInputDecoration(labelText: 'category'),
+                items:jobCategories.map((e) =>DropdownMenuItem(
+               value: e, 
+               child: Text(e),
+               )
+               ).toList() ,
+                onChanged:(value){setState(() { } 
+                ); } 
+                ),
+
               SizedBox(height: 15),
               TextFormField(
                 controller: company_name_Controller,
@@ -58,6 +85,9 @@ class _NewJobScreenState extends State<NewJobScreen> {
                     labelText: 'Company name', hintText: 'Company name'),
               ),
               SizedBox(height: 15),
+
+              
+
               TextFormField(
                 controller: job_desc_Controller,
                 keyboardType: TextInputType.text,
