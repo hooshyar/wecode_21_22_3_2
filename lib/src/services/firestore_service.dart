@@ -11,66 +11,23 @@ class FirestoreService {
     if (sortby == 'date') fieldName = 'createdAt';
     if (sortby == 'bootcamp name') fieldName = 'bootCampName';
 
-    if (sortby == null) {
-      if (name != null) {
-        return _firebaseFirestore
-            .collection('users')
-            .where('name', isEqualTo: name)
-            .snapshots()
-            .map(
-              (docValue) => docValue.docs
-                  .map(
-                    (e) => GeneralUser.fromMap(
-                      e.data(),
-                    ),
-                  )
-                  .toList(),
-            );
-      }
-      return _firebaseFirestore
-          .collection('users')
-          // .where('name', isEqualTo: name)
-          .snapshots()
-          .map(
-            (docValue) => docValue.docs
-                .map(
-                  (e) => GeneralUser.fromMap(
-                    e.data(),
-                  ),
-                )
-                .toList(),
-          );
-    } else {
-      if (name != null) {
-        return _firebaseFirestore
-            .collection('users')
-            .where('name', isEqualTo: name)
-            .orderBy(fieldName!)
-            .snapshots()
-            .map(
-              (docValue) => docValue.docs
-                  .map(
-                    (e) => GeneralUser.fromMap(
-                      e.data(),
-                    ),
-                  )
-                  .toList(),
-            );
-      }
-      return _firebaseFirestore
-          .collection('users')
-          // .where('name', isEqualTo: name)
-          .orderBy(fieldName!, descending: true)
-          .snapshots()
-          .map(
-            (docValue) => docValue.docs
-                .map(
-                  (e) => GeneralUser.fromMap(
-                    e.data(),
-                  ),
-                )
-                .toList(),
-          );
-    }
+    return _firebaseFirestore
+        .collection('users')
+        .where('name', isEqualTo: name)
+        .where('isTeacher', isEqualTo: true)
+        // .orderBy('createdAt')
+        // .where('bootcamp', isEqualTo: 'MA') show the students for correct bootcamp ID
+        //todo : update the registration form to select the bootcamp name using a drop down
+
+        .snapshots()
+        .map(
+          (docValue) => docValue.docs
+              .map(
+                (e) => GeneralUser.fromMap(
+                  e.data(),
+                ),
+              )
+              .toList(),
+        );
   }
 }
