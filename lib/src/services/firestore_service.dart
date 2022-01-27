@@ -6,6 +6,20 @@ import 'package:wecode_2021/src/data_models/job_model.dart';
 class FirestoreService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
+  Future<void> incrementTheLikesValue(
+      int likesCount, DocumentReference doc) async {
+    await doc.update({'jobLikeCount': likesCount++}).then((value) {
+      return debugPrint('success');
+    }).onError((error, stackTrace) => debugPrint(error.toString()));
+  }
+
+  Future<void> incrementTheViewCount(
+      int jobViews, DocumentReference doc) async {
+    await doc.update({'jobViews': jobViews++}).then((value) {
+      return debugPrint('success');
+    }).onError((error, stackTrace) => debugPrint(error.toString()));
+  }
+
 //read a stream of jobs to the screen
   Stream<List<Job>> streamOfJobs() {
     return _firebaseFirestore.collection('jobs').snapshots().map(
