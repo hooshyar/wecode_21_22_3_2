@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wecode_2021/src/data_models/job_model.dart';
 import 'package:wecode_2021/src/services/firestore_service.dart';
+import 'package:wecode_2021/src/widgets/jobs_card_widget.dart';
 
 class job_screen extends StatefulWidget {
   const job_screen({Key? key}) : super(key: key);
@@ -42,7 +43,7 @@ class _job_screenState extends State<job_screen> {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return Text(snapshot.data![index].jobTitle);
+                      return JobCardWidget(job: snapshot.data![index]);
                     },
                   );
                 }),
