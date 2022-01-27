@@ -118,7 +118,12 @@ class _job_screenState extends State<job_screen> {
                         labelText: 'Send CV to email'),
                   ),
 
-                  ElevatedButton(onPressed: (){}, child: Text("Add New Job"),
+                  ElevatedButton(onPressed: (){
+
+                      
+
+
+                  }, child: Text("Add New Job"),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent)
                     
@@ -137,4 +142,11 @@ class _job_screenState extends State<job_screen> {
       ),
     );
   }
+
+Future<void> addJob(){
+
+
+
+}
+
 }
