@@ -10,6 +10,8 @@ class Job {
   num salaryEstimate;
   String companyName;
   num jobLikeCount;
+  num jobViews;
+  bool isFaved;
   String emailAddress;
   Job({
     required this.jobTitle,
@@ -21,6 +23,8 @@ class Job {
     required this.salaryEstimate,
     required this.companyName,
     required this.jobLikeCount,
+    required this.jobViews,
+    required this.isFaved,
     required this.emailAddress,
   });
 
@@ -34,6 +38,8 @@ class Job {
     num? salaryEstimate,
     String? companyName,
     num? jobLikeCount,
+    num? jobViews,
+    bool? isFaved,
     String? emailAddress,
   }) {
     return Job(
@@ -46,6 +52,8 @@ class Job {
       salaryEstimate: salaryEstimate ?? this.salaryEstimate,
       companyName: companyName ?? this.companyName,
       jobLikeCount: jobLikeCount ?? this.jobLikeCount,
+      jobViews: jobViews ?? this.jobViews,
+      isFaved: isFaved ?? this.isFaved,
       emailAddress: emailAddress ?? this.emailAddress,
     );
   }
@@ -61,6 +69,8 @@ class Job {
       'salaryEstimate': salaryEstimate,
       'companyName': companyName,
       'jobLikeCount': jobLikeCount,
+      'jobViews': jobViews,
+      'isFaved': isFaved,
       'emailAddress': emailAddress,
     };
   }
@@ -76,6 +86,8 @@ class Job {
       salaryEstimate: map['salaryEstimate'] ?? 0,
       companyName: map['companyName'] ?? '',
       jobLikeCount: map['jobLikeCount'] ?? 0,
+      jobViews: map['jobViews'] ?? 0,
+      isFaved: map['isFaved'] ?? false,
       emailAddress: map['emailAddress'] ?? '',
     );
   }
@@ -86,7 +98,7 @@ class Job {
 
   @override
   String toString() {
-    return 'Job(jobTitle: $jobTitle, jobDesc: $jobDesc, jobCreatedAt: $jobCreatedAt, jobDueDate: $jobDueDate, jobCategory: $jobCategory, jobHiresCount: $jobHiresCount, salaryEstimate: $salaryEstimate, companyName: $companyName, jobLikeCount: $jobLikeCount, emailAddress: $emailAddress)';
+    return 'Job(jobTitle: $jobTitle, jobDesc: $jobDesc, jobCreatedAt: $jobCreatedAt, jobDueDate: $jobDueDate, jobCategory: $jobCategory, jobHiresCount: $jobHiresCount, salaryEstimate: $salaryEstimate, companyName: $companyName, jobLikeCount: $jobLikeCount, jobViews: $jobViews, isFaved: $isFaved, emailAddress: $emailAddress)';
   }
 
   @override
@@ -103,6 +115,8 @@ class Job {
         other.salaryEstimate == salaryEstimate &&
         other.companyName == companyName &&
         other.jobLikeCount == jobLikeCount &&
+        other.jobViews == jobViews &&
+        other.isFaved == isFaved &&
         other.emailAddress == emailAddress;
   }
 
@@ -117,6 +131,8 @@ class Job {
         salaryEstimate.hashCode ^
         companyName.hashCode ^
         jobLikeCount.hashCode ^
+        jobViews.hashCode ^
+        isFaved.hashCode ^
         emailAddress.hashCode;
   }
 }
