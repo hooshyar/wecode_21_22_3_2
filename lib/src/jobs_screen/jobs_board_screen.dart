@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:wecode_2021/src/constants/style.dart';
-
+import 'package:wecode_2021/src/data_models/job_model.dart';
+import 'package:wecode_2021/src/services/firestore_service.dart';
+import 'package:wecode_2021/src/widgets/jobs_card_widget.dart';
 
 class job_screen extends StatefulWidget {
-  const job_screen({ Key? key }) : super(key: key);
+  const job_screen({Key? key}) : super(key: key);
 
   @override
   _job_screenState createState() => _job_screenState();
 }
 
 class _job_screenState extends State<job_screen> {
+  final FirestoreService _firestoreService = FirestoreService();
+
   @override
 
   
@@ -24,109 +27,39 @@ class _job_screenState extends State<job_screen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar:AppBar(
-        title: Text("Add a new job "),
-        centerTitle: true,
-        backgroundColor: Colors.grey,
-      ),
-
-      body: SingleChildScrollView(
-        child: Container(
-      
-          child:  Form(
-      
-                child: Column(
-                children: [
-                 SizedBox(height: 15),
-      
-                  TextFormField(
-                    controller: job_title_Controller ,
-                    keyboardType: TextInputType.text,
-                    decoration: generalInputDecoration(
-                        labelText: 'Job Title'),
-                  ),
-                  
-                  SizedBox(height: 15),
-
-                  TextFormField(
-                    controller: category_Controller ,
-                    keyboardType: TextInputType.text,
-                    decoration: generalInputDecoration(
-                        labelText: 'Category', hintText: 'category'),
-                  ),
-                  SizedBox(height: 15),
-      
-                  TextFormField(
-                    controller: company_name_Controller ,
-                    keyboardType: TextInputType.text,
-                    decoration: generalInputDecoration(
-                        labelText: 'Company name', hintText: 'Company name'),
-                  ),
-      
-                  SizedBox(height: 15),
-      
-                  TextFormField(
-                    controller: job_desc_Controller ,
-                    keyboardType: TextInputType.text,
-                    decoration: generalInputDecoration(
-                        labelText: 'Job desc', hintText: 'job desc'),
-                  ),
-      
-                   SizedBox(height: 15),
-      
-      
-                  TextFormField(
-                    controller: hires_times_Controller ,
-                    keyboardType: TextInputType.text,
-                    decoration: generalInputDecoration(
-                        labelText: 'how many hires', hintText: 'how many hires'),
-                  ),
-      
-                  SizedBox(height: 15),
-      
-      
-                  TextFormField(
-                    controller: salary_Controller ,
-                    keyboardType: TextInputType.text,
-                    decoration: generalInputDecoration(
-                        labelText: 'Salary estimation', hintText: 'Salary estimation'),
-                  ),                
-                  
-                   SizedBox(height: 15),
-      
-      
-                  TextFormField(
-                    controller: date_valid_Controller ,
-                    keyboardType: TextInputType.text,
-                    decoration: generalInputDecoration(
-                        labelText: 'valid till date'),
-                  ),
-      
-                  SizedBox(height: 15),
-      
-      
-                  TextFormField(
-                    controller: send_cv_Controller ,
-                    keyboardType: TextInputType.text,
-                    decoration: generalInputDecoration(
-                        labelText: 'Send CV to email'),
-                  ),
-
-                  ElevatedButton(onPressed: (){}, child: Text("Add New Job"),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent)
-                    
-                     ),
-                  )
-                  
-                
-      
-                ]
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          Container(
+            child: Row(
+              children: [
+                Container(
+                  color: Colors.red,
+                )
+              ],
+            ),
           ),
-        ),
+          Expanded(
+            child: StreamBuilder<List<Job>>(
+                stream: _firestoreService.streamOfJobs(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData)
+                    return LinearProgressIndicator();
+                  else if (snapshot.hasError)
+                    return Center(child: Text('error ${snapshot.error}'));
+                  else if (snapshot.data!.isEmpty) {
+                    return Center(child: Text('no job available'));
+                  }
 
-     ),
+                  return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return JobCardWidget(job: snapshot.data![index]);
+                    },
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }

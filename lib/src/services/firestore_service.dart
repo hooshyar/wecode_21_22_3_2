@@ -1,8 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:wecode_2021/src/data_models/general_user.dart';
+import 'package:wecode_2021/src/data_models/job_model.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
+//read a stream of jobs to the screen
+  Stream<List<Job>> streamOfJobs() {
+    return _firebaseFirestore.collection('jobs').snapshots().map(
+          (v) => v.docs
+              .map(
+                (e) => Job.fromMap(e.data()),
+              )
+              .toList(),
+        );
+  }
+
+  //adding a new job to firestore "jobs" collection
+  Future<void> addNewJob(Job job) async {
+    await _firebaseFirestore
+        .collection('jobs')
+        .add(job.toMap())
+        .then((value) => debugPrint('success'))
+        .onError((error, stackTrace) => debugPrint(error.toString()));
+  }
 
   Stream<List<GeneralUser>>? streamOfGeneralUsers(
       {String? name, String? sortby}) {
