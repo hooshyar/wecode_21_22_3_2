@@ -42,23 +42,8 @@ class _NewJobScreenState extends State<NewJobScreen> {
             child: Column(children: [
               SizedBox(height: 15),
 
-             Text('${date.year}/${date.month}/${date.day}'),
-                SizedBox(height: 15),
-
-                ElevatedButton(onPressed: ()async{
-
-                  DateTime? newDAte= await showDatePicker(
-                    context: context,
-                    initialDate: date,
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2040),
-                    );
-
-                }, child: Text("date") ),
-
-
-
-              TextFormField(
+    
+              TextFormField(            
                 controller: job_title_Controller,
                 keyboardType: TextInputType.text,
                 decoration: generalInputDecoration(labelText: 'Job Title'),
@@ -86,8 +71,6 @@ class _NewJobScreenState extends State<NewJobScreen> {
               ),
               SizedBox(height: 15),
 
-              
-
               TextFormField(
                 controller: job_desc_Controller,
                 keyboardType: TextInputType.text,
@@ -110,13 +93,33 @@ class _NewJobScreenState extends State<NewJobScreen> {
                     hintText: 'Salary estimation'),
               ),
               SizedBox(height: 15),
+
               TextFormField(
                 controller: date_valid_Controller,
                 keyboardType: TextInputType.text,
                 decoration:
-                    generalInputDecoration(labelText: 'valid till date'),
+                   InputDecoration(
+                     icon: Icon(Icons.event), 
+                     label: Text("valid till date"),
+                      hintText: 'valid till date',
+                    border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    ),
+                   
+  ),
+                     onTap: () async{
+
+                   DateTime? newDAte= await showDatePicker(
+                    context: context,
+                    initialDate: date,
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2040),
+                    );
+                    date_valid_Controller.text = date.toIso8601String();
+                          },
               ),
               SizedBox(height: 15),
+              
               TextFormField(
                 controller: send_cv_Controller,
                 keyboardType: TextInputType.text,
@@ -149,6 +152,7 @@ class _NewJobScreenState extends State<NewJobScreen> {
                         MaterialStateProperty.all<Color>(Colors.greenAccent)),
               )
             ]),
+      
           ),
         ),
       ),
