@@ -27,6 +27,8 @@ class _NewJobScreenState extends State<NewJobScreen> {
   TextEditingController date_valid_Controller = TextEditingController();
   TextEditingController send_cv_Controller = TextEditingController();
 
+  
+
   DateTime date = DateTime(2022,1,28);
 
   Widget build(BuildContext context) {
@@ -42,7 +44,6 @@ class _NewJobScreenState extends State<NewJobScreen> {
             child: Column(children: [
               SizedBox(height: 15),
 
-    
               TextFormField(            
                 controller: job_title_Controller,
                 keyboardType: TextInputType.text,
@@ -63,26 +64,33 @@ class _NewJobScreenState extends State<NewJobScreen> {
                 ),
 
               SizedBox(height: 15),
+
               TextFormField(
                 controller: company_name_Controller,
                 keyboardType: TextInputType.text,
                 decoration: generalInputDecoration(
-                    labelText: 'Company name', hintText: 'Company name'),
+                    labelText: 'Company name',
+                     hintText: 'Company name'),
               ),
+
               SizedBox(height: 15),
 
               TextFormField(
                 controller: job_desc_Controller,
                 keyboardType: TextInputType.text,
                 decoration: generalInputDecoration(
-                    labelText: 'Job desc', hintText: 'job desc'),
+                labelText: 'Job desc',
+                 hintText: 'job desc'),
               ),
+
               SizedBox(height: 15),
+
               TextFormField(
                 controller: hires_times_Controller,
                 keyboardType: TextInputType.text,
                 decoration: generalInputDecoration(
-                    labelText: 'how many hires', hintText: 'how many hires'),
+                    labelText: 'how many hires',
+                     hintText: 'how many hires'),
               ),
               SizedBox(height: 15),
               TextFormField(
@@ -106,7 +114,7 @@ class _NewJobScreenState extends State<NewJobScreen> {
                     borderRadius: BorderRadius.circular(8),
                     ),
                    
-  ),
+                     ),
                      onTap: () async{
 
                    DateTime? newDAte= await showDatePicker(
@@ -116,16 +124,22 @@ class _NewJobScreenState extends State<NewJobScreen> {
                     lastDate: DateTime(2040),
                     );
                     date_valid_Controller.text = date.toIso8601String();
-                          },
-              ),
+
+                   },
+                 ),
+
               SizedBox(height: 15),
               
               TextFormField(
                 controller: send_cv_Controller,
                 keyboardType: TextInputType.text,
                 decoration:
-                    generalInputDecoration(labelText: 'Send CV to email'),
+               generalInputDecoration(
+                 labelText: 'Send CV to email'
+                 ),
               ),
+
+
               ElevatedButton(
                 onPressed: () async {
                   Job _newJob = Job(
@@ -148,11 +162,11 @@ class _NewJobScreenState extends State<NewJobScreen> {
                 },
                 child: Text("Add New Job"),
                 style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.greenAccent)),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent)
+                
+                ),
               )
             ]),
-      
           ),
         ),
       ),

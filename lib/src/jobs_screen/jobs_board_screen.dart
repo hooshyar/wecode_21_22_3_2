@@ -18,13 +18,12 @@ class _job_screenState extends State<job_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(
-          child: FaIcon(FontAwesomeIcons.plus),
-          onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => NewJobScreen()),
-              )),
+      appBar: AppBar(
+        title: Text("Job Board"),
+        centerTitle: true,
+        backgroundColor: Colors.grey,
+      ),
+
       body: Column(
         children: [
           Container(
@@ -61,6 +60,13 @@ class _job_screenState extends State<job_screen> {
           ),
         ],
       ),
+
+         floatingActionButton: FloatingActionButton(
+         child: FaIcon(FontAwesomeIcons.plus),
+         onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => NewJobScreen()),
+              )),
     );
   }
 }
