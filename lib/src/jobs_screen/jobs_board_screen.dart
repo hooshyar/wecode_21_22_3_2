@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wecode_2021/src/data_models/job_model.dart';
@@ -23,10 +24,12 @@ class _job_screenState extends State<job_screen> {
         centerTitle: true,
         backgroundColor: Colors.grey,
       ),
+      
 
       body: Column(
         children: [
           Container(
+            
             height: 100,
             child: Row(
               children: [
@@ -62,11 +65,30 @@ class _job_screenState extends State<job_screen> {
       ),
 
          floatingActionButton: FloatingActionButton(
+           backgroundColor:Colors.black,
          child: FaIcon(FontAwesomeIcons.plus),
          onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => NewJobScreen()),
               )),
+
+        bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'List',
+            backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Fav',
+            backgroundColor: Colors.green,
+          ),
+         
+          
+        ],
+       
+      ),
     );
   }
 }
