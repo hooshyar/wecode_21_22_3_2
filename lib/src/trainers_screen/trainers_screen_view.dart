@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/data_models/general_user.dart';
+import 'package:wecode_2021/src/jobs_screen/jobs_board_screen.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 import 'package:wecode_2021/src/services/firestore_service.dart';
 import 'package:wecode_2021/src/student_screen/student_screen_view.dart';
@@ -40,6 +41,16 @@ class _TrainersScreenViewState extends State<TrainersScreenView> {
       ]),
       body: Column(
         children: [
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => job_screen(),
+                  ),
+                );
+              },
+              child: Text('to the jobs board')),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

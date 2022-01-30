@@ -30,7 +30,7 @@ class AppView extends StatelessWidget {
       initialRoute: '/',
       // initialRoute: '/trainersScreen',
       routes: {
-        '/': (context) => const job_screen(), //this was the Auth handler
+        '/': (context) => AuthHandler(), //this was the Auth handler
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),
