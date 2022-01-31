@@ -61,14 +61,22 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 children: [
                   _selectedProfileImg == null
                       ? Container(
+
                           height: 120,
                           width: 120,
-                          decoration: BoxDecoration(color: Colors.blue),
+                          decoration: BoxDecoration(
+                            color: Colors.deepPurple,
+                             borderRadius: BorderRadius.all(
+                              Radius.circular(70)
+                              ),
+
+                            ),
                         )
                       : Container(
                           height: 120,
                           width: 120,
                           decoration: BoxDecoration(
+                   
                             color: _selectedProfileImg == null
                                 ? Colors.blue
                                 : null,
@@ -79,7 +87,15 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             ),
                           ),
                         ),
+                        Divider(
+                          height: 10,
+                          color: Colors.white,
+                          
+                        ),
                   ElevatedButton(
+                    style:ElevatedButton.styleFrom(
+                      primary: Colors.deepPurple,
+                    ),
                       onPressed: () async {
                         // add image picker package
                         _selectedProfileImg = await _imagePicker.pickImage(
@@ -89,7 +105,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                         setState(() {});
                         // pick an image from the gallery
                       },
-                      child: Text('select profile image')),
+                      child: Text('Select profile image')),
                   const SizedBox(
                     height: 15,
                   ),
@@ -156,6 +172,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                 height: 60,
                                 width: 200,
                                 child: ElevatedButton(
+
                                     onPressed: () async {
                                       setState(() {
                                         _isLoading = true;
@@ -215,13 +232,22 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                         // }).catchError((e) => debugPrint(e.toString()));
                                       }
                                     },
-                                    child: Text('Create it!'))),
-                            Text('Name: ' +
-                                _nameController.value.text +
-                                'bootCampId: ' +
-                                'phone: ' +
-                                _phoneNumberController.value.text),
-                            Divider(),
+                                    child: Text('Create it!'),
+
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.deepPurple
+                                    ),
+                                    )
+                                    )
+                                    ,
+                            // Text('Name: ' +
+                            //     _nameController.value.text +
+                            //     'bootCampId: ' +
+                            //     'phone: ' +
+                            //     _phoneNumberController.value.text),
+
+                            // Divider(),
+
                             // Text('List of users using Futures:'),
                             // Container(
                             //   height: 80,
@@ -254,41 +280,42 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             //   ),
                             // ),
                             // Divider(),
+                            
 
-                            Text('List of users using Stream:'),
-                            Container(
-                                height: 80,
-                                color: Colors.amber[300],
-                                child: StreamBuilder<QuerySnapshot>(
-                                    stream: FirebaseFirestore.instance
-                                        .collection('users')
-                                        .snapshots(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasError) {
-                                        return Text('error');
-                                      } else if (!snapshot.hasData ||
-                                          snapshot.data == null) {
-                                        return Text('empty');
-                                      } else if (snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return LinearProgressIndicator();
-                                      }
+                            // Text('List of users using Stream:'),
+                            // Container(
+                            //     height: 80,
+                            //     color: Colors.amber[300],
+                            //     child: StreamBuilder<QuerySnapshot>(
+                            //         stream: FirebaseFirestore.instance
+                            //             .collection('users')
+                            //             .snapshots(),
+                            //         builder: (context, snapshot) {
+                            //           if (snapshot.hasError) {
+                            //             return Text('error');
+                            //           } else if (!snapshot.hasData ||
+                            //               snapshot.data == null) {
+                            //             return Text('empty');
+                            //           } else if (snapshot.connectionState ==
+                            //               ConnectionState.waiting) {
+                            //             return LinearProgressIndicator();
+                            //           }
 
-                                      List<DocumentSnapshot> _docs =
-                                          snapshot.data!.docs;
+                            //           List<DocumentSnapshot> _docs =
+                            //               snapshot.data!.docs;
 
-                                      List<GeneralUser> _users = _docs
-                                          .map((e) => GeneralUser.fromMap(
-                                              e.data() as Map<String, dynamic>))
-                                          .toList();
+                            //           List<GeneralUser> _users = _docs
+                            //               .map((e) => GeneralUser.fromMap(
+                            //                   e.data() as Map<String, dynamic>))
+                            //               .toList();
 
-                                      return ListView.builder(
-                                          itemCount: _users.length,
-                                          itemBuilder: (context, index) {
-                                            return Text(_users[index].name ??
-                                                'no name');
-                                          });
-                                    })),
+                            //           return ListView.builder(
+                            //               itemCount: _users.length,
+                            //               itemBuilder: (context, index) {
+                            //                 return Text(_users[index].name ??
+                            //                     'no name');
+                            //               });
+                            //         })),
                           ],
                         )),
                   ),

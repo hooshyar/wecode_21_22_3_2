@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wecode_2021/src/home_screen/home_screen_view.dart';
+import 'package:wecode_2021/src/jobs_screen/add_new_job_screen.dart';
 import 'package:wecode_2021/src/jobs_screen/jobs_board_screen.dart';
+import 'package:wecode_2021/src/jobs_screen/list_of_jobs_screen.dart';
 import 'package:wecode_2021/src/login_screen/login_screen_view.dart';
 import 'package:wecode_2021/src/privacy_policy/privacy_policy_screen.dart';
 import 'package:wecode_2021/src/profile_screens/create_profile_screen.dart';
@@ -31,7 +33,7 @@ class AppView extends StatelessWidget {
       initialRoute: '/',
       // initialRoute: '/trainersScreen',
       routes: {
-        '/': (context) =>  HomeScreenView(), //this was the Auth handler
+        '/': (context) =>  ListOfJobsScreen(), //this was the Auth handler
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),

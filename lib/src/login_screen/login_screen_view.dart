@@ -28,76 +28,90 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: Container(
         margin: EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Text('Welcome $name'),
-            Form(
-                child: Column(
-              children: [
-                Text('the logged in user: $theLoggedInUser'),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Text('Welcome $name'),
+              Form(
+                  child: Column(
+                children: [
+                  // Text('the logged in user: $theLoggedInUser'),
+        
+                  //user name
+                  TextFormField(
+                    controller: _userNameController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: generalInputDecoration(
+                        labelText: 'User Name', hintText: 'email@something.com'),
+                  ),
+                  //passsword
+        
+                  SizedBox(height: 15),
+        
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: generalInputDecoration(labelText: 'Password'),
+                  ),
 
-                //user name
-                TextFormField(
-                  controller: _userNameController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: generalInputDecoration(
-                      labelText: 'User Name', hintText: 'email@something.com'),
-                ),
-                //passsword
+                   SizedBox(
+                    height: 150,
+                  ), 
 
-                SizedBox(height: 15),
-
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: generalInputDecoration(labelText: 'Password'),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () async {
-                    setState(() {
-                      name = _userNameController.value.text;
-                      password = _passwordController.value.text;
-                    });
-                    name = name.trim(); //remove spaces
-                    name = name.toLowerCase(); //convert to lowercase
-
-                    await Provider.of<AuthService>(context, listen: false)
-                        .loginWithEmailAndPassword(name, password!)
-                        .then((value) {
+                    ElevatedButton.icon(
+                    onPressed: () async {
                       setState(() {
-                        theLoggedInUser = value!.user!.uid;
+                        name = _userNameController.value.text;
+                        password = _passwordController.value.text;
                       });
-                      Navigator.pop(context);
-                    });
-                  },
-                  icon: Icon(
-                    Icons.login,
-                  ),
-                  label: Text(
-                    'Login',
-                  ),
-                ),
-
-                //error
-                Provider.of<AuthService>(context).theError == null
-                    ? Container()
-                    : Container(
-                        child: Text(
-                          Provider.of<AuthService>(context).theError!,
-                          style: TextStyle(color: Colors.red),
-                        ),
-                      ),
-                SizedBox(
-                  height: 50,
-                ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/privacyPolicyScreen');
+                      name = name.trim(); //remove spaces
+                      name = name.toLowerCase(); //convert to lowercase
+        
+                      await Provider.of<AuthService>(context, listen: false)
+                          .loginWithEmailAndPassword(name, password!)
+                          .then((value) {
+                        setState(() {
+                          theLoggedInUser = value!.user!.uid;
+                        });
+                        Navigator.pop(context);
+                      });
                     },
-                    child: Text('Privacy Policy'))
-              ],
-            ))
-          ],
+                    icon: Icon(
+                      Icons.login,
+                    ),
+                    label: Text(
+                      'Login',
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.deepPurple,
+                    ),
+                  ),
+        
+                  //error
+                  Provider.of<AuthService>(context).theError == null
+                      ? Container()
+                      : Container(
+                          child: Text(
+                            Provider.of<AuthService>(context).theError!,
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                  // SizedBox(
+                  //   height: 50,
+                  // ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/privacyPolicyScreen');
+                      },
+                      child: Text('Privacy Policy'),
+                      style: TextButton.styleFrom(
+                        primary: Colors.deepPurple
+                      ),
+                      )
+                ],
+              ))
+            ],
+          ),
         ),
       ),
     );

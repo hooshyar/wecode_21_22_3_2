@@ -19,7 +19,7 @@ class HomeScreenView extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // StreamBuilder<User?>(
@@ -38,10 +38,6 @@ class HomeScreenView extends StatelessWidget {
                     .email!
                 : 'no user'),
 
-            Divider(
-              color: Colors.indigo,
-              height: 25,
-            ),
 
             // show this only to not logged in users
             Padding(

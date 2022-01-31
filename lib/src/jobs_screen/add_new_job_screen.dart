@@ -139,7 +139,7 @@ class _NewJobScreenState extends State<NewJobScreen> {
                  ),
               ),
 
-
+               SizedBox(height: 20,),
               ElevatedButton(
                 onPressed: () async {
                   Job _newJob = Job(
@@ -161,11 +161,12 @@ class _NewJobScreenState extends State<NewJobScreen> {
                       .then((value) => Navigator.pop(context));
                 },
                 child: Text("Add New Job"),
-                style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent)
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurple,
+                )
                 
                 ),
-              )
+              
             ]),
           ),
         ),

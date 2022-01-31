@@ -39,6 +39,7 @@ class _ListOfJobsScreenState extends State<ListOfJobsScreen> {
           ),
           Expanded(
             child: StreamBuilder<List<Job>>(
+              
                 stream: _firestoreService.streamOfJobs(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData)
@@ -53,8 +54,10 @@ class _ListOfJobsScreenState extends State<ListOfJobsScreen> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       return Container(
+                        
                           height: 100,
-                          child: JobCardWidget(job: snapshot.data![index]));
+                          child: JobCardWidget(job: snapshot.data![index])
+                          );
                     },
                   );
                 }),
@@ -62,7 +65,7 @@ class _ListOfJobsScreenState extends State<ListOfJobsScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.deepPurple,
           child: FaIcon(FontAwesomeIcons.plus),
           onPressed: () => Navigator.push(
                 context,

@@ -24,7 +24,7 @@ class _FavouriteJobScreenState extends State<FavouriteJobScreen> {
         backgroundColor: Colors.deepPurple[400],
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.deepPurple,
           child: Icon(FontAwesomeIcons.plus),
           onPressed: () => Navigator.push(
                 context,
