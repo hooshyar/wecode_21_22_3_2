@@ -32,7 +32,12 @@ class _TrainersScreenViewState extends State<TrainersScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Trainer Dashboard'), actions: [
+      appBar: AppBar(
+        title: Text('Trainer Dashboard'), 
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple[400],
+
+        actions: [
         IconButton(
             onPressed: () {
               Provider.of<AuthService>(context, listen: false).logOut();

@@ -21,7 +21,7 @@ class _FavouriteJobScreenState extends State<FavouriteJobScreen> {
       appBar: AppBar(
         title: Text("Favs"),
         centerTitle: true,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.deepPurple[400],
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,

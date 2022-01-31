@@ -10,10 +10,16 @@ class HomeScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Home Screen"),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple[400],
+
+      
+      ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // StreamBuilder<User?>(
@@ -46,6 +52,10 @@ class HomeScreenView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                          primary: Colors.deepPurple,
+                        
+                      ) ,
                         onPressed: () {
                           Navigator.pushNamed(context, '/login');
                         },
@@ -54,6 +64,10 @@ class HomeScreenView extends StatelessWidget {
                   VerticalDivider(width: 15),
                   Expanded(
                     child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                          primary: Colors.deepPurple,
+                        
+                      ) ,
                         onPressed: () {
                           Navigator.pushNamed(context, '/register');
                         },
@@ -89,26 +103,27 @@ class HomeScreenView extends StatelessWidget {
                   ),
 
             //show this only to logged in users
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.red,
-                        ),
-                        onPressed: () {
-                          Provider.of<AuthService>(context, listen: false)
-                              .logOut();
-                        },
-                        child: Text('Sign Out')),
-                  ),
-                ],
-              ),
-            )
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Expanded(
+            //         child: ElevatedButton(
+                      
+            //             style: ElevatedButton.styleFrom(
+            //               primary: Colors.deepPurple,
+            //             ),
+            //             onPressed: () {
+            //               Provider.of<AuthService>(context, listen: false)
+            //                   .logOut();
+            //             },
+            //             child: Text('Sign Out')),
+            //       ),
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),

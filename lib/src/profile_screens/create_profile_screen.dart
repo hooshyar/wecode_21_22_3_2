@@ -47,7 +47,10 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create your profile'),
+      title: Text('Create your profile'),
+      centerTitle: true,
+      backgroundColor: Colors.deepPurple[400],
+
       ),
       body: _isLoading == true
           ? Center(child: CircularProgressIndicator())
@@ -297,7 +300,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   Future<String?> uploadTheSelectedFile(String uid) async {
     //selected image as file
-    File _theImageFile = File(_selectedProfileImg!.path);
+    File _theImageFile = File(_selectedProfileImg !.path);
 
     //upload the selected image
     await _firebaseStorage

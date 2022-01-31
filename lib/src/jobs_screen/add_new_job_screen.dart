@@ -36,7 +36,7 @@ class _NewJobScreenState extends State<NewJobScreen> {
       appBar: AppBar(
         title: Text("Add a new job "),
         centerTitle: true,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.deepPurple[400],
       ),
       body: SingleChildScrollView(
         child: Container(

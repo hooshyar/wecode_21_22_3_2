@@ -10,6 +10,9 @@ class StudentDashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Student Dashboard'),
+        backgroundColor: Colors.deepPurple[400],
+        centerTitle: true,
+
         actions: [
           IconButton(
               onPressed: () {

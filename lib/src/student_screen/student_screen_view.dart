@@ -32,7 +32,12 @@ class _StudentScreenState extends State<StudentScreen> {
     return widget.generalUser == null
         ? Container()
         : Scaffold(
-            appBar: AppBar(title: Text('the User'), actions: [
+            appBar: AppBar(
+              title: Text('the User'),
+              centerTitle: true,
+              backgroundColor: Colors.deepPurple[400],
+
+               actions: [
               IconButton(
                   onPressed: () {
                     Provider.of<AuthService>(context, listen: false).logOut();

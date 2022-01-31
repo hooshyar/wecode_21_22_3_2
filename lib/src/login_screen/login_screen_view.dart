@@ -23,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple[400],
       ),
       body: Container(
         margin: EdgeInsets.all(15),

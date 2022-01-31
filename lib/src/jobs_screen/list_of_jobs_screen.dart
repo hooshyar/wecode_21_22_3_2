@@ -23,7 +23,7 @@ class _ListOfJobsScreenState extends State<ListOfJobsScreen> {
       appBar: AppBar(
         title: Text("Job Board"),
         centerTitle: true,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.deepPurple[400],
       ),
       body: Column(
         children: [
