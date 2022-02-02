@@ -4,7 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wecode_2021/src/data_models/general_user.dart';
 import 'package:wecode_2021/src/jobs_screen/jobs_board_screen.dart';
 import 'package:wecode_2021/src/services/firestore_service.dart';
-import 'package:wecode_2021/src/student_screen/student_screen_view.dart';
+import 'package:wecode_2021/src/student_screen/news_student_screen.dart';
+import 'package:wecode_2021/src/student_screen/student_dashboard_screen.dart';
 
 class StudentLinktreeView extends StatefulWidget {
   const StudentLinktreeView({ Key? key }) : super(key: key);
@@ -36,23 +37,7 @@ class _StudentLinktreeViewState extends State<StudentLinktreeView> {
       ),
       body: Column(
            children: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => job_screen(),
-                  ),
-                );
-              },
-              child: Text('to the jobs board'),
-
-              style: ElevatedButton.styleFrom(
-                primary: Colors.deepPurple,
-              ),
-              
-              
-              ),
+         
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -61,7 +46,8 @@ class _StudentLinktreeViewState extends State<StudentLinktreeView> {
                   child: TextField(
                     controller: _searchController,
                     decoration: InputDecoration(
-                        label: Text('search'), hintText: 'name'),
+                        label: Text('search'),
+                         hintText: 'name'),
                     onChanged: (value) {
                       if (value.length < 1) {
                         setState(() {
@@ -171,7 +157,7 @@ class PersonCardWidget extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => StudentScreen(
+                  builder: (context) => NewsStudentScreen(
                         generalUser: theUser,
                       )));
         },

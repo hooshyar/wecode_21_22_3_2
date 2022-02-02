@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/home_screen/home_screen_view.dart';
 import 'package:wecode_2021/src/profile_screens/create_profile_screen.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
-import 'package:wecode_2021/src/student_screen/student_screen_view.dart';
-import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
+import 'package:wecode_2021/src/student_dashboard/student_dashboard.dart';
+import 'package:wecode_2021/src/student_screen/news_student_screen.dart';
+import 'package:wecode_2021/src/student_screen/student_dashboard_screen.dart';
+import 'package:wecode_2021/src/trainers_screen/trainers_dashboard_screen_view.dart';
 
 class AuthHandler extends StatelessWidget {
   AuthHandler({Key? key}) : super(key: key);
@@ -71,14 +73,14 @@ class AuthHandler extends StatelessWidget {
               } else {
                 debugPrint('student 2');
                 // return Text('69');
-                return StudentScreen(
+                return NewsStudentScreen(
                   generalUser: Provider.of<AuthService>(context).generalUser,
                 );
               }
             }
             debugPrint('student4');
             // return Text('student');
-            return StudentScreen(
+            return NewsStudentScreen(
               generalUser: Provider.of<AuthService>(context).generalUser,
             );
           },

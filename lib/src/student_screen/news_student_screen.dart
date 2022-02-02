@@ -6,15 +6,15 @@ import 'package:wecode_2021/src/data_models/general_user.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class StudentScreen extends StatefulWidget {
-  const StudentScreen({Key? key, required this.generalUser}) : super(key: key);
+class NewsStudentScreen extends StatefulWidget {
+  const NewsStudentScreen({Key? key, required this.generalUser}) : super(key: key);
   final GeneralUser? generalUser;
 
   @override
-  State<StudentScreen> createState() => _StudentScreenState();
+  State<NewsStudentScreen> createState() => _NewsStudentScreenState();
 }
 
-class _StudentScreenState extends State<StudentScreen> {
+class _NewsStudentScreenState extends State<NewsStudentScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -29,21 +29,16 @@ class _StudentScreenState extends State<StudentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.generalUser == null
+    return widget.generalUser == 1
         ? Container()
         : Scaffold(
             appBar: AppBar(
-              title: Text('the User'),
+              title: Text('Student News'),
               centerTitle: true,
               backgroundColor: Colors.deepPurple[400],
 
-               actions: [
-              IconButton(
-                  onPressed: () {
-                    Provider.of<AuthService>(context, listen: false).logOut();
-                  },
-                  icon: Icon(Icons.logout)),
-            ]),
+              
+            ),
             body: widget.generalUser == null
                 ? Container(child: Text('You are not authorised'))
                 : Column(
