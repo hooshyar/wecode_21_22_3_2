@@ -23,6 +23,7 @@ class _job_screenState extends State<job_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

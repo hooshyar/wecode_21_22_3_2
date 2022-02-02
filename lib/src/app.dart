@@ -9,6 +9,7 @@ import 'package:wecode_2021/src/privacy_policy/privacy_policy_screen.dart';
 import 'package:wecode_2021/src/profile_screens/create_profile_screen.dart';
 import 'package:wecode_2021/src/registeration_screen/register_screen.dart';
 import 'package:wecode_2021/src/student_dashboard/student_dashboard.dart';
+import 'package:wecode_2021/src/student_screen/student_linktree_view.dart';
 import 'package:wecode_2021/src/student_screen/student_screen_view.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_screen_view.dart';
 import 'package:wecode_2021/src/widgets/auth_handler.dart';
@@ -33,7 +34,7 @@ class AppView extends StatelessWidget {
       initialRoute: '/',
       // initialRoute: '/trainersScreen',
       routes: {
-        '/': (context) =>  ListOfJobsScreen(), //this was the Auth handler
+        '/': (context) => TrainersScreenView(), //this was the Auth handler
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),
