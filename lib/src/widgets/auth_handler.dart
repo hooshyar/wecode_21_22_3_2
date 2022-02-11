@@ -65,7 +65,9 @@ class AuthHandler extends StatelessWidget {
                         .isCompletedProfile ==
                     true) {
               //is teacher  or is student
-              if (Provider.of<AuthService>(context).generalUser!.isTeacher ==
+              if (Provider.of<AuthService>(context, listen: false)
+                      .generalUser!
+                      .isTeacher ==
                   true) {
                 // return Text('66');
 

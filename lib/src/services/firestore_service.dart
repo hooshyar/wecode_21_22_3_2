@@ -51,7 +51,7 @@ class FirestoreService {
     return _firebaseFirestore
         .collection('users')
         .where('name', isEqualTo: name)
-        .where('isTeacher', isEqualTo: true)
+        .where('isTeacher', isEqualTo: null)
         // .orderBy('createdAt')
         // .where('bootcamp', isEqualTo: 'MA') show the students for correct bootcamp ID
         //todo : update the registration form to select the bootcamp name using a drop down

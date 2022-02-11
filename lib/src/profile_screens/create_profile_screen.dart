@@ -47,10 +47,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-      title: Text('Create your profile'),
-      centerTitle: true,
-      backgroundColor: Colors.deepPurple[400],
-
+        title: Text('Create your profile'),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple[400],
       ),
       body: _isLoading == true
           ? Center(child: CircularProgressIndicator())
@@ -61,22 +60,17 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 children: [
                   _selectedProfileImg == null
                       ? Container(
-
                           height: 120,
                           width: 120,
                           decoration: BoxDecoration(
                             color: Colors.deepPurple,
-                             borderRadius: BorderRadius.all(
-                              Radius.circular(70)
-                              ),
-
-                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(70)),
+                          ),
                         )
                       : Container(
                           height: 120,
                           width: 120,
                           decoration: BoxDecoration(
-                   
                             color: _selectedProfileImg == null
                                 ? Colors.blue
                                 : null,
@@ -87,15 +81,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             ),
                           ),
                         ),
-                        Divider(
-                          height: 10,
-                          color: Colors.white,
-                          
-                        ),
+                  Divider(
+                    height: 10,
+                    color: Colors.white,
+                  ),
                   ElevatedButton(
-                    style:ElevatedButton.styleFrom(
-                      primary: Colors.deepPurple,
-                    ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.deepPurple,
+                      ),
                       onPressed: () async {
                         // add image picker package
                         _selectedProfileImg = await _imagePicker.pickImage(
@@ -172,74 +165,70 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                 height: 60,
                                 width: 200,
                                 child: ElevatedButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      _isLoading = true;
+                                      debugPrint(_isLoading.toString());
+                                    });
 
-                                    onPressed: () async {
-                                      setState(() {
-                                        _isLoading = true;
-                                        debugPrint(_isLoading.toString());
-                                      });
+                                    bool _isValidated =
+                                        _formGlobalKey.currentState!.validate();
 
-                                      bool _isValidated = _formGlobalKey
-                                          .currentState!
-                                          .validate();
+                                    if (_isValidated == true &&
+                                        _authProvider.theUser != null) {
+                                      _selectedProfileImg == null
+                                          ? () {}
+                                          : await uploadTheSelectedFile(
+                                              _authProvider.theUser!.uid);
+                                      //make our job easier
+                                      GeneralUser _generalUser = GeneralUser(
+                                        uid: _authProvider.theUser!.uid,
+                                        email: _authProvider.theUser!.email,
+                                        name: _nameController.value.text,
+                                        phoneNumber:
+                                            _phoneNumberController.value.text,
+                                        bootCampName:
+                                            _bootCampNameController.value.text,
+                                        bootCampId:
+                                            _bootCampIdController.value.text,
+                                        github: _githubController.value.text,
+                                        linkedIn:
+                                            _linkedInController.value.text,
+                                        createdAt: Timestamp.now(),
+                                        isCompletedProfile:
+                                            _bootCampNameController.value.text
+                                                        .isNotEmpty ||
+                                                    _bootCampIdController
+                                                        .value.text.isNotEmpty
+                                                ? true
+                                                : false,
+                                        imgUrl: _theDlUrl,
+                                      );
 
-                                      if (_isValidated == true &&
-                                          _authProvider.theUser != null) {
-                                        await uploadTheSelectedFile(
-                                            _authProvider.theUser!.uid);
-                                        //make our job easier
-                                        GeneralUser _generalUser = GeneralUser(
-                                          uid: _authProvider.theUser!.uid,
-                                          email: _authProvider.theUser!.email,
-                                          name: _nameController.value.text,
-                                          phoneNumber:
-                                              _phoneNumberController.value.text,
-                                          bootCampName: _bootCampNameController
-                                              .value.text,
-                                          bootCampId:
-                                              _bootCampIdController.value.text,
-                                          github: _githubController.value.text,
-                                          linkedIn:
-                                              _linkedInController.value.text,
-                                          createdAt: Timestamp.now(),
-                                          isCompletedProfile:
-                                              _bootCampNameController.value.text
-                                                          .isNotEmpty ||
-                                                      _bootCampIdController
-                                                          .value.text.isNotEmpty
-                                                  ? true
-                                                  : false,
-                                          imgUrl: _theDlUrl,
-                                        );
-
-                                        await FirebaseFirestore.instance
-                                            .collection('users')
-                                            .doc(_authProvider.theUser!.uid)
-                                            .set(_generalUser.toMap(),
-                                                SetOptions(merge: true))
-                                            .then((value) {
-                                          setState(() {
-                                            _isLoading = false;
-                                            debugPrint(_isLoading.toString());
-                                          });
-                                          Navigator.pushNamed(context, '/');
+                                      await FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(_authProvider.theUser!.uid)
+                                          .set(_generalUser.toMap(),
+                                              SetOptions(merge: true))
+                                          .then((value) {
+                                        setState(() {
+                                          _isLoading = false;
+                                          debugPrint(_isLoading.toString());
                                         });
-                                        //     .collection('users')
-                                        //     .add({
-                                        //   'name': "wha",
-                                        //   'email': 00121212,
-                                        //   'bootCampId': "whad",
-                                        // }).catchError((e) => debugPrint(e.toString()));
-                                      }
-                                    },
-                                    child: Text('Create it!'),
-
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Colors.deepPurple
-                                    ),
-                                    )
-                                    )
-                                    ,
+                                        Navigator.pushNamed(context, '/');
+                                      });
+                                      //     .collection('users')
+                                      //     .add({
+                                      //   'name': "wha",
+                                      //   'email': 00121212,
+                                      //   'bootCampId': "whad",
+                                      // }).catchError((e) => debugPrint(e.toString()));
+                                    }
+                                  },
+                                  child: Text('Create it!'),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.deepPurple),
+                                )),
                             // Text('Name: ' +
                             //     _nameController.value.text +
                             //     'bootCampId: ' +
@@ -280,7 +269,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             //   ),
                             // ),
                             // Divider(),
-                            
 
                             // Text('List of users using Stream:'),
                             // Container(
@@ -327,7 +315,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   Future<String?> uploadTheSelectedFile(String uid) async {
     //selected image as file
-    File _theImageFile = File(_selectedProfileImg !.path);
+    File _theImageFile = File(_selectedProfileImg!.path);
 
     //upload the selected image
     await _firebaseStorage

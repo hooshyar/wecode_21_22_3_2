@@ -20,26 +20,10 @@ class _ListOfJobsScreenState extends State<ListOfJobsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Job Board"),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple[400],
-      ),
       body: Column(
         children: [
-          Container(
-            height: 100,
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.red,
-                )
-              ],
-            ),
-          ),
           Expanded(
             child: StreamBuilder<List<Job>>(
-              
                 stream: _firestoreService.streamOfJobs(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData)
@@ -54,10 +38,8 @@ class _ListOfJobsScreenState extends State<ListOfJobsScreen> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        
                           height: 100,
-                          child: JobCardWidget(job: snapshot.data![index])
-                          );
+                          child: JobCardWidget(job: snapshot.data![index]));
                     },
                   );
                 }),

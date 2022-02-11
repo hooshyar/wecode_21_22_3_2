@@ -23,6 +23,7 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   cached_network_image: ^3.2.0
   url_launcher: ^6.0.18
+  firebase_messaging: ^11.2.6
 
 dev_dependencies:
   flutter_lints: ^1.0.0

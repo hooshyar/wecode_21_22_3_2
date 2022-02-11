@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:wecode_2021/src/data_models/general_user.dart';
 
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   GeneralUser? generalUser;
   String? theError;
@@ -14,6 +16,26 @@ class AuthService extends ChangeNotifier {
   void setTheError(String? err) {
     theError = err;
     notifyListeners();
+  }
+
+  Future<UserCredential> registerAnon() async {
+    UserCredential _anonUser = await _firebaseAuth.signInAnonymously();
+    _anonUser.user!.uid;
+    return _anonUser;
+  }
+
+  Future<String?> generateTokenAndSave(String uid) async {
+    String? _token = await _firebaseMessaging.getToken();
+    _firebaseFirestore.collection('tokens').doc(_token).set({
+      'token': _token,
+      'uid': uid,
+    });
+    return _token;
+  }
+
+  sendANotif(String token) async {
+    await _firebaseMessaging.sendMessage(
+        to: token, data: ({}), messageId: 'send to $token');
   }
 
   // a void func which updates the value of the generalUser
@@ -58,6 +80,7 @@ class AuthService extends ChangeNotifier {
           .createUserWithEmailAndPassword(email: email, password: password);
       setTheUser(theUserCredentials.user);
       setTheError(null);
+
       return theUserCredentials;
     } on FirebaseAuthException catch (e) {
       setTheError(e.message);
@@ -72,6 +95,11 @@ class AuthService extends ChangeNotifier {
       UserCredential theUserCredentials = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       setTheUser(theUserCredentials.user);
+      // _firebaseFirestore
+      //     .collection('users')
+      //     .doc(theUserCredentials.user!.uid)
+      //     .set({});
+      //TODO: user from db
       setTheError(null);
       return theUserCredentials;
     } on FirebaseAuthException catch (err) {

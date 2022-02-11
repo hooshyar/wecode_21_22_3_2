@@ -8,7 +8,7 @@ import 'package:wecode_2021/src/student_screen/news_student_screen.dart';
 import 'package:wecode_2021/src/student_screen/student_dashboard_screen.dart';
 
 class StudentLinktreeView extends StatefulWidget {
-  const StudentLinktreeView({ Key? key }) : super(key: key);
+  const StudentLinktreeView({Key? key}) : super(key: key);
 
   @override
   _StudentLinktreeViewState createState() => _StudentLinktreeViewState();
@@ -28,16 +28,11 @@ class _StudentLinktreeViewState extends State<StudentLinktreeView> {
     canSearch = false;
     super.initState();
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("LinkTree View"),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple[400],
-      ),
       body: Column(
-           children: [
-         
+        children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -46,8 +41,7 @@ class _StudentLinktreeViewState extends State<StudentLinktreeView> {
                   child: TextField(
                     controller: _searchController,
                     decoration: InputDecoration(
-                        label: Text('search'),
-                         hintText: 'name'),
+                        label: Text('search'), hintText: 'name'),
                     onChanged: (value) {
                       if (value.length < 1) {
                         setState(() {
@@ -131,13 +125,13 @@ class _StudentLinktreeViewState extends State<StudentLinktreeView> {
       ),
     );
   }
-      whatShouldIDO() {
+
+  whatShouldIDO() {
     setState(() {
       theSearch = _searchController.value.text;
     });
   }
-  }
-
+}
 
 class PersonCardWidget extends StatelessWidget {
   const PersonCardWidget({
@@ -167,12 +161,16 @@ class PersonCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(height: 4),
-              CircleAvatar(
-                radius: 70,
-                backgroundColor: Theme.of(context).primaryColor,
-                backgroundImage: NetworkImage(theUser.imgUrl ??
-                    'https://researcher.almojam.org/api/assets/unknown.jpg'),
-              ),
+
+              // CircleAvatar(
+              //   radius: 70,
+              //   backgroundColor: Theme.of(context).primaryColor,
+              //   onBackgroundImageError: (err, stack) =>
+              //       debugPrint(err.toString()),
+              //   backgroundImage: NetworkImage(theUser.imgUrl ??
+              //       'https://researcher.almojam.org/api/assets/unknown.jpg'),
+              // ),
+
               Container(
                 child: Column(
                   // crossAxisAlignment: CrossAxisAlignment.start,
