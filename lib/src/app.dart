@@ -5,6 +5,7 @@ import 'package:wecode_2021/src/jobs_screen/add_new_job_screen.dart';
 import 'package:wecode_2021/src/jobs_screen/jobs_board_screen.dart';
 import 'package:wecode_2021/src/jobs_screen/list_of_jobs_screen.dart';
 import 'package:wecode_2021/src/login_screen/login_screen_view.dart';
+import 'package:wecode_2021/src/notifications_test/Notification_test.dart';
 import 'package:wecode_2021/src/privacy_policy/privacy_policy_screen.dart';
 import 'package:wecode_2021/src/profile_screens/create_profile_screen.dart';
 import 'package:wecode_2021/src/registeration_screen/register_screen.dart';
@@ -35,7 +36,7 @@ class AppView extends StatelessWidget {
       initialRoute: '/',
       // initialRoute: '/trainersScreen',
       routes: {
-        '/': (context) => AuthHandler(), //this was the Auth handler
+        '/': (context) => AuthHandler(), //this has to be the Auth handler
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),

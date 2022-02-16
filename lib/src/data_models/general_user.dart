@@ -22,6 +22,7 @@ class GeneralUser {
   Timestamp? updatedAt;
   String? bootCampId;
   String? bootCampName;
+  bool? isApproved;
 
   GeneralUser(
       {this.uid,

@@ -109,11 +109,8 @@ class _StudentLinktreeViewState extends State<StudentLinktreeView> {
                   } else if (snapshot.hasError) {
                     return Text(snapshot.error.toString());
                   }
-                  return GridView.builder(
+                  return ListView.builder(
                       itemCount: snapshot.data!.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount:
-                              MediaQuery.of(context).size.width < 500 ? 2 : 4),
                       itemBuilder: (context, index) {
                         return PersonCardWidget(theUser: snapshot.data![index]);
                       });
@@ -156,6 +153,7 @@ class PersonCardWidget extends StatelessWidget {
                       )));
         },
         child: Container(
+          height: 90,
           // color: Colors.red,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -172,9 +170,11 @@ class PersonCardWidget extends StatelessWidget {
               // ),
 
               Container(
-                child: Column(
+                padding: EdgeInsets.all(10),
+                child: Row(
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       theUser.name ?? 'no name',
