@@ -32,6 +32,9 @@ dependencies:
   path_provider: ^2.0.0
   rxdart: ^0.27.2
   shared_preferences: ^2.0.1
+  sqflite: ^2.0.2
+  synchronized: ^3.0.0
+  sqlbrite: ^2.2.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -40,9 +43,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-   - icons/
-   - sound/
+  # assets:
+  #  - icons/
+  #  - sound/
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

@@ -9,6 +9,7 @@ import 'package:wecode_2021/src/notifications_test/Notification_test.dart';
 import 'package:wecode_2021/src/privacy_policy/privacy_policy_screen.dart';
 import 'package:wecode_2021/src/profile_screens/create_profile_screen.dart';
 import 'package:wecode_2021/src/registeration_screen/register_screen.dart';
+import 'package:wecode_2021/src/sql_plat/sql_test.dart';
 import 'package:wecode_2021/src/student_dashboard/student_dashboard.dart';
 import 'package:wecode_2021/src/student_screen/student_dashboard_screen.dart';
 import 'package:wecode_2021/src/student_screen/student_linktree_view.dart';
