@@ -48,13 +48,15 @@ class _ListOfJobsScreenState extends State<ListOfJobsScreen> {
           ),
         ],
       ),
-      floatingActionButton: Provider.of<AuthService>(context).generalUser!.isTeacher! ? Container() :FloatingActionButton(
+      floatingActionButton: Provider.of<AuthService>(context).generalUser!.isTeacher! ?  FloatingActionButton(
           backgroundColor: Colors.deepPurple,
           child: FaIcon(FontAwesomeIcons.plus),
           onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => NewJobScreen()),
-              )),
+              )
+              
+              ) : Container(),
     );
   }
 }
