@@ -11,7 +11,7 @@ A new Flutter project.
 - [ ] Logos, Icons, and some art design, use Wecode colors
 - [ ] Improve design of student lists card
 - [ ] Improve design students screen profile
-- [ ] Drawer Functionality (Show user info)
+- [ ] Drawer Functionality (Show user info) Done
 - [ ] Create a widget for likes and implement counts
 - [ ] Improve the create profile page, and do validate, make the Workshop name drop down, add bio sections
 - [ ] Jobs single screen view, with likes and comments

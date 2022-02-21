@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/home_screen/home_screen_view.dart';
 import 'package:wecode_2021/src/jobs_screen/add_new_job_screen.dart';
 import 'package:wecode_2021/src/jobs_screen/jobs_board_screen.dart';
@@ -9,6 +10,7 @@ import 'package:wecode_2021/src/notifications_test/Notification_test.dart';
 import 'package:wecode_2021/src/privacy_policy/privacy_policy_screen.dart';
 import 'package:wecode_2021/src/profile_screens/create_profile_screen.dart';
 import 'package:wecode_2021/src/registeration_screen/register_screen.dart';
+import 'package:wecode_2021/src/services/auth_service.dart';
 import 'package:wecode_2021/src/sql_plat/sql_test.dart';
 import 'package:wecode_2021/src/student_dashboard/student_dashboard.dart';
 import 'package:wecode_2021/src/student_screen/student_dashboard_screen.dart';
@@ -41,7 +43,7 @@ class AppView extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),
-        '/trainersScreen': (context) => TrainersScreenView(),
+
         '/privacyPolicyScreen': (context) => const PrivacyPolicyScreen(),
         '/studentDashboard': (context) => StudentDashboard(),
       },
