@@ -5,21 +5,23 @@ A new Flutter project.
 
 
 ## Todos
-- [ ] Add theming design, colors and fonts BRWA
-- [ ] Redesign Landing screen before, login and sign up page redesign YASSIN
-- [ ] Graphic and Animation design (Rive or Lottie) Darwaza
-- [ ] Logos, Icons, and some art design, use Wecode colors Darwaza
-- [ ] Improve design of student lists card Karwan
-- [ ] Improve design students screen profile Karwan 
-- [ ] Drawer Functionality (Show user info) Mohammad Mansur
-- [ ] Create a widget for likes and implement counts Hekar
-- [ ] Improve the create profile page, and do validate, make the Workshop name drop down, add bio sections Ayman Abd
-- [ ] Jobs single screen view, with likes Huda hamid
-- [ ] Add a news section, implement cards for news Shanya 
-- [ ] Single news view Shanya
-- [ ] Remove login error when pop the screen Brwa only
-- [ ] Students screen bottom navigation, list of jobs(no ability to post a new) Amad
- 
+
+- [ ] Add theming design, colors and fonts
+- [ ] Redesign Landing screen before, login and sign up page redesign
+- [ ] Graphic and Animation design (Rive or Lottie)
+- [ ] Logos, Icons, and some art design, use Wecode colors
+- [ ] Improve design of student lists card
+- [ ] Improve design students screen profile
+- [ ] Drawer Functionality (Show user info) Done
+- [ ] Create a widget for likes and implement counts
+- [ ] Improve the create profile page, and do validate, make the Workshop name drop down, add bio sections
+- [ ] Jobs single screen view, with likes and comments
+- [ ] Add a news section, implement cards for news
+- [ ] Single news view 
+- [ ] Remove login error when pop the screen
+- [ ] Students screen bottom navigation, list of jobs(no ability to post a new)
+
+
 
  ## Getting Started
 
