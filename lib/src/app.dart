@@ -18,23 +18,29 @@ import 'package:wecode_2021/src/student_screen/student_linktree_view.dart';
 import 'package:wecode_2021/src/student_screen/news_student_screen.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_dashboard_screen_view.dart';
 import 'package:wecode_2021/src/widgets/auth_handler.dart';
+import 'package:get/get.dart';
 
 class AppView extends StatelessWidget {
   const AppView({Key? key}) : super(key: key);
   final String selectedLang = 'ar';
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primaryColor: Colors.red,
+          primaryColor: Colors.deepPurple[400],
           textTheme: TextTheme(
               bodyText1: TextStyle(
-            fontSize: 18,
+            fontSize: 18, 
           )),
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.red,
-          )),
+          ),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          
+          ),
+          
+        
       // theme: ThemeData.dark(),
       initialRoute: '/',
       // initialRoute: '/trainersScreen',

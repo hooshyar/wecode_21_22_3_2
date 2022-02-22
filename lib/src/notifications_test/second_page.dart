@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage(
@@ -27,6 +28,16 @@ class SecondPageState extends State<SecondPage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text('Second Screen with payload: ${_payload ?? ''}'),
+            backgroundColor: Theme.of(context).primaryColor,
+         actions: <Widget>[
+         Padding(
+           padding: const EdgeInsets.all(10.0),
+           child: IconButton(onPressed: () {
+             Get.isDarkMode 
+             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
+           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
+         ),
+         ]
         ),
         body: Center(
           child: ElevatedButton(

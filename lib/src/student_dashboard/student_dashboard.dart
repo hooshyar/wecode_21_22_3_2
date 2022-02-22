@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 
@@ -10,7 +11,7 @@ class StudentDashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Student Dashboard'),
-        backgroundColor: Colors.deepPurple[400],
+        backgroundColor:  Theme.of(context).primaryColor,
         centerTitle: true,
 
         actions: [
@@ -19,7 +20,15 @@ class StudentDashboard extends StatelessWidget {
                 Provider.of<AuthService>(context, listen: false).logOut();
               },
               icon: Icon(Icons.logout)),
+              Padding(
+           padding: const EdgeInsets.all(10.0),
+           child: IconButton(onPressed: () {
+             Get.isDarkMode 
+             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
+           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
+         ),
         ],
+
       ),
       // backgroundColor: Colors.black,
       body: Container(

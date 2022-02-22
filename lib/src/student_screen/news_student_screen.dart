@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wecode_2021/src/data_models/general_user.dart';
@@ -34,33 +35,46 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.generalUser == 1
-        ? Container()
+    // return widget.generalUser == 1
+    //     ? Container()
 
-        : AdvancedDrawer(
-            backdropColor: Color.fromARGB(255, 0, 0, 0),
-            controller: _advancedDrawerController,
-            animationCurve: Curves.easeInOut,
-            animationDuration: const Duration(milliseconds: 300),
-            animateChildDecoration: true,
-            rtlOpening: false,
-            disabledGestures: false,
-            childDecoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black,
-                  blurRadius: 20.0,
-                  spreadRadius: 5.0,
-                  offset: const Offset(-20.0, 0.0),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(30),
+    //     : AdvancedDrawer(
+         
+    //         backdropColor: Color.fromARGB(255, 0, 0, 0),
+    //         controller: _advancedDrawerController,
+    //         animationCurve: Curves.easeInOut,
+    //         animationDuration: const Duration(milliseconds: 300),
+    //         animateChildDecoration: true,
+    //         rtlOpening: false,
+    //         disabledGestures: false,
 
-        : Scaffold(
+    //         childDecoration: BoxDecoration(
+    //           boxShadow: [
+    //             BoxShadow(
+    //               color: Colors.black,
+    //               blurRadius: 20.0,
+    //               spreadRadius: 5.0,
+    //               offset: const Offset(-20.0, 0.0),
+    //             ),
+    //           ],
+    //           borderRadius: BorderRadius.circular(30),
+     
+
+    //     :
+      return   Scaffold(
             appBar: AppBar(
               title: Text('Student News'),
               centerTitle: true,
               backgroundColor: Colors.deepPurple[400],
+               actions: <Widget>[
+         Padding(
+           padding: const EdgeInsets.all(10.0),
+           child: IconButton(onPressed: () {
+             Get.isDarkMode 
+             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
+           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
+         ),
+        ],
 
             ),
             drawer: SafeArea(
@@ -211,7 +225,7 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
                 ),
               ),
             ),
-            child: Scaffold(
+            body: Scaffold(
                 appBar: AppBar(
                   title: Text('Student News'),
                   centerTitle: true,
@@ -242,12 +256,14 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
                             flex: 2,
                             child: Container(
                               // color: Colors.red,
-
-                      ElevatedButton(
+                              child: ElevatedButton(
                           onPressed: () =>
                               Provider.of<AuthService>(context, listen: false)
                                   .logOut(),
                           child: Text('data')),
+                
+                            ),
+                          ),
                       Expanded(
                         flex: 2,
                         child: Container(
@@ -304,87 +320,90 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              // color: Colors.green,
-                              child: Column(
-                                children: [
-                                  _textContainer(
-                                      text: widget.generalUser!.name ?? 'da'),
-                                  _textContainer(
-                                      text: widget.generalUser!.title ??
-                                          'no title'),
-                                  widget.generalUser!.location == null
-                                      ? Container()
-                                      : _textContainer(
-                                          text: widget.generalUser!.location ??
-                                              'ds'),
-                                  const Padding(
-                                    child: Divider(
-                                      color: Colors.black87,
-                                      height: 25,
-                                    ),
-                                    padding:
-                                        EdgeInsets.only(right: 50, left: 50),
-                                  ),
-                                  _textContainer(text: 'bio'),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 8.0, left: 8.0),
-                                    child: _textContainer(
-                                        text:
-                                            widget.generalUser!.bio ?? 'no bio',
-                                        isJustify: true),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Container(
-                              child: ListView(
-                                children: [
-                                  widget.generalUser!.linkedIn == null
-                                      ? Container()
-                                      : _urlLauncherButton(
-                                          url: widget.generalUser!.linkedIn!,
-                                          label: 'LinkedIn'),
-                                  widget.generalUser!.stackOverflow == null
-                                      ? Container()
-                                      : _urlLauncherButton(
-                                          url: widget
-                                              .generalUser!.stackOverflow!,
-                                          label: 'stackOverflow'),
-                                  widget.generalUser!.github == null
-                                      ? Container()
-                                      : _urlLauncherButton(
-                                          url: widget.generalUser!.github!,
-                                          label: 'github'),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              child: SafeArea(
-                                child: Row(
-                                  children: [
-                                    _generalBoxButton(
-                                        icon: Icon(
-                                      FontAwesomeIcons.linkedin,
-                                      color: Colors.blue,
-                                    ))
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        //   Expanded(
+                        //     flex: 2,
+                        //     child: Container(
+                        //       // color: Colors.green,
+                        //       child: Column(
+                        //         children: [
+                        //           _textContainer(
+                        //               text: widget.generalUser!.name ?? 'da'),
+                        //           _textContainer(
+                        //               text: widget.generalUser!.title ??
+                        //                   'no title'),
+                        //           widget.generalUser!.location == null
+                        //               ? Container()
+                        //               : _textContainer(
+                        //                   text: widget.generalUser!.location ??
+                        //                       'ds'),
+                        //           const Padding(
+                        //             child: Divider(
+                        //               color: Colors.black87,
+                        //               height: 25,
+                        //             ),
+                        //             padding:
+                        //                 EdgeInsets.only(right: 50, left: 50),
+                        //           ),
+                        //           _textContainer(text: 'bio'),
+                        //           Padding(
+                        //             padding: const EdgeInsets.only(
+                        //                 right: 8.0, left: 8.0),
+                        //             child: _textContainer(
+                        //                 text:
+                        //                     widget.generalUser!.bio ?? 'no bio',
+                        //                 isJustify: true),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   Expanded(
+                        //     flex: 4,
+                        //     child: Container(
+                        //       child: ListView(
+                        //         children: [
+                        //           widget.generalUser!.linkedIn == null
+                        //               ? Container()
+                        //               : _urlLauncherButton(
+                        //                   url: widget.generalUser!.linkedIn!,
+                        //                   label: 'LinkedIn'),
+                        //           widget.generalUser!.stackOverflow == null
+                        //               ? Container()
+                        //               : _urlLauncherButton(
+                        //                   url: widget
+                        //                       .generalUser!.stackOverflow!,
+                        //                   label: 'stackOverflow'),
+                        //           widget.generalUser!.github == null
+                        //               ? Container()
+                        //               : _urlLauncherButton(
+                        //                   url: widget.generalUser!.github!,
+                        //                   label: 'github'),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   Expanded(
+                        //     flex: 1,
+                        //     child: Container(
+                        //       child: SafeArea(
+                        //         child: Row(
+                        //           children: [
+                        //             _generalBoxButton(
+                        //                 icon: Icon(
+                        //               FontAwesomeIcons.linkedin,
+                        //               color: Colors.blue,
+                        //             ))
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ],
                       )),
-          );
+                        ]
+          ),
+            )
+      );
   }
 
   void _handleMenuButtonPressed() {
