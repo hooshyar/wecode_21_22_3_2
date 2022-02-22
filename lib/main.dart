@@ -65,6 +65,7 @@ void main() async {
   await Firebase.initializeApp().then((value) => print('initialized'));
 
   //FIXME: initialize Local notifications
+
   // await _configureLocalTimeZone();
 
   // final NotificationAppLaunchDetails? notificationAppLaunchDetails = !kIsWeb &&
@@ -111,7 +112,7 @@ void main() async {
   // final LinuxInitializationSettings initializationSettingsLinux =
   //     LinuxInitializationSettings(
   //   defaultActionName: 'Open notification',
-  //   // defaultIcon: AssetsLinuxIcon('icons/app_icon.png'),
+
   // );
   // final InitializationSettings initializationSettings = InitializationSettings(
   //   android: initializationSettingsAndroid,
