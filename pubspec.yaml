@@ -35,6 +35,8 @@ dependencies:
   sqflite: ^2.0.2
   synchronized: ^3.0.0
   sqlbrite: ^2.2.0
+  getwidget: ^2.0.4
+  lipsum: ^1.0.1
 
 dev_dependencies:
   flutter_lints: ^1.0.0

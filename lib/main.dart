@@ -29,6 +29,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:wecode_2021/src/trainers_screen/trainers_list_of_news.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -82,51 +83,51 @@ void main() async {
 
   /// Note: permissions aren't requested here just to demonstrate that can be
   /// done later
-  final IOSInitializationSettings initializationSettingsIOS =
-      IOSInitializationSettings(
-          requestAlertPermission: false,
-          requestBadgePermission: false,
-          requestSoundPermission: false,
-          onDidReceiveLocalNotification: (
-            int id,
-            String? title,
-            String? body,
-            String? payload,
-          ) async {
-            didReceiveLocalNotificationSubject.add(
-              ReceivedNotification(
-                id: id,
-                title: title,
-                body: body,
-                payload: payload,
-              ),
-            );
-          });
-  const MacOSInitializationSettings initializationSettingsMacOS =
-      MacOSInitializationSettings(
-    requestAlertPermission: false,
-    requestBadgePermission: false,
-    requestSoundPermission: false,
-  );
-  final LinuxInitializationSettings initializationSettingsLinux =
-      LinuxInitializationSettings(
-    defaultActionName: 'Open notification',
-    defaultIcon: AssetsLinuxIcon('icons/app_icon.png'),
-  );
-  final InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initializationSettingsIOS,
-    macOS: initializationSettingsMacOS,
-    linux: initializationSettingsLinux,
-  );
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onSelectNotification: (String? payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: $payload');
-    }
-    selectedNotificationPayload = payload;
-    selectNotificationSubject.add(payload);
-  });
+  // final IOSInitializationSettings initializationSettingsIOS =
+  //     IOSInitializationSettings(
+  //         requestAlertPermission: false,
+  //         requestBadgePermission: false,
+  //         requestSoundPermission: false,
+  //         onDidReceiveLocalNotification: (
+  //           int id,
+  //           String? title,
+  //           String? body,
+  //           String? payload,
+  //         ) async {
+  //           didReceiveLocalNotificationSubject.add(
+  //             ReceivedNotification(
+  //               id: id,
+  //               title: title,
+  //               body: body,
+  //               payload: payload,
+  //             ),
+  //           );
+  //         });
+  // const MacOSInitializationSettings initializationSettingsMacOS =
+  //     MacOSInitializationSettings(
+  //   requestAlertPermission: false,
+  //   requestBadgePermission: false,
+  //   requestSoundPermission: false,
+  // );
+  // final LinuxInitializationSettings initializationSettingsLinux =
+  //     LinuxInitializationSettings(
+  //   defaultActionName: 'Open notification',
+  //   defaultIcon: AssetsLinuxIcon('icons/app_icon.png'),
+  // );
+  // final InitializationSettings initializationSettings = InitializationSettings(
+  //   android: initializationSettingsAndroid,
+  //   iOS: initializationSettingsIOS,
+  //   macOS: initializationSettingsMacOS,
+  //   linux: initializationSettingsLinux,
+  // );
+  // await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+  //     onSelectNotification: (String? payload) async {
+  //   if (payload != null) {
+  //     debugPrint('notification payload: $payload');
+  //   }
+  //   selectedNotificationPayload = payload;
+  //   selectNotificationSubject.add(payload);
+  // });
   //FIXME: initialize Local notifications
 
   //notifications session
@@ -142,11 +143,13 @@ void main() async {
   //   });
   // });
   runApp(
-    MultiProvider(
-      child: const AppView(),
-      providers: [
-        ChangeNotifierProvider(create: (context) => AuthService()),
-      ],
+    MaterialApp(
+      home: MultiProvider(
+        child: AppView(),
+        providers: [
+          ChangeNotifierProvider(create: (context) => AuthService()),
+        ],
+      ),
     ),
   );
 }
