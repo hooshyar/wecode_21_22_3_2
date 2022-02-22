@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:wecode_2021/src/data_models/general_user.dart';
 import 'package:wecode_2021/src/home_screen/home_screen_view.dart';
 import 'package:wecode_2021/src/jobs_screen/add_new_job_screen.dart';
 import 'package:wecode_2021/src/jobs_screen/jobs_board_screen.dart';
@@ -17,6 +18,7 @@ import 'package:wecode_2021/src/student_screen/student_dashboard_screen.dart';
 import 'package:wecode_2021/src/student_screen/student_linktree_view.dart';
 import 'package:wecode_2021/src/student_screen/news_student_screen.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_dashboard_screen_view.dart';
+import 'package:wecode_2021/src/trainers_screen/trainers_list_of_news.dart';
 import 'package:wecode_2021/src/widgets/auth_handler.dart';
 import 'package:get/get.dart';
 
@@ -42,13 +44,16 @@ class AppView extends StatelessWidget {
           
         
       // theme: ThemeData.dark(),
-      initialRoute: '/',
+      initialRoute: '/homeScreenView',
       // initialRoute: '/trainersScreen',
       routes: {
-        '/': (context) => AuthHandler(), //this has to be the Auth handler
+        '/': (context) => TrainersScreenView(
+              generalUser: GeneralUser(),
+            ), //this has to be the Auth handler
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),
+        '/homeScreenView': (context) => HomeScreenView(),
 
         '/privacyPolicyScreen': (context) => const PrivacyPolicyScreen(),
         '/studentDashboard': (context) => StudentDashboard(),

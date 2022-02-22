@@ -14,6 +14,7 @@ class HomeScreenView extends StatelessWidget {
       appBar: AppBar(
         title: Text("Home Screen"),
         centerTitle: true,
+
         backgroundColor:Theme.of(context).primaryColor ,
         actions: <Widget>[
          Padding(
@@ -25,12 +26,18 @@ class HomeScreenView extends StatelessWidget {
          ),
         ],
       
+
+        backgroundColor: Colors.deepPurple[400],
+
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 20,
+            ),
             // StreamBuilder<User?>(
             //     stream: _auth.authStatusChanges,
             //     builder: (context, snapshot) {
@@ -41,46 +48,102 @@ class HomeScreenView extends StatelessWidget {
             //       }
             //     }),
 
-            Text(Provider.of<AuthService>(context, listen: true).theUser != null
-                ? Provider.of<AuthService>(context, listen: true)
-                    .theUser!
-                    .email!
-                : 'no user'),
-
-
-            // show this only to not logged in users
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: CircleAvatar(
+                radius: 80,
+                backgroundImage: AssetImage('assets/rw.png'),
+              ),
+            ),
+
+            // Text(Provider.of<AuthService>(context, listen: true).theUser != null
+            //     ? Provider.of<AuthService>(context, listen: true)
+            //         .theUser!
+            //         .email!
+            //     : 'no user'),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Welcome to the wecode application!',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Expanded(
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                          primary: Colors.deepPurple,
-                        
-                      ) ,
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/login');
-                        },
-                        child: Text('Login')),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.deepPurple,
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: Text('Login'),
+                    ),
                   ),
-                  VerticalDivider(width: 15),
-                  Expanded(
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
+                        style: ElevatedButton.styleFrom(
                           primary: Colors.deepPurple,
-                        
-                      ) ,
+                        ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/register');
                         },
                         child: Text('register')),
                   ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Privacy Policy',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ],
               ),
             ),
+
+            // show this only to not logged in users
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Expanded(
+            //         child: ElevatedButton(
+            //             style: ElevatedButton.styleFrom(
+            //               primary: Colors.deepPurple,
+            //             ),
+            //             onPressed: () {
+            //               Navigator.pushNamed(context, '/login');
+            //             },
+            //             child: Text('Login')),
+            //       ),
+            //       VerticalDivider(width: 15),
+            //       Expanded(
+            //         child: ElevatedButton(
+            //             style: ElevatedButton.styleFrom(
+            //               primary: Colors.deepPurple,
+            //             ),
+            //             onPressed: () {
+            //               Navigator.pushNamed(context, '/register');
+            //             },
+            //             child: Text('register')),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             Provider.of<AuthService>(context).theUser == null
                 ? Container()
@@ -116,7 +179,7 @@ class HomeScreenView extends StatelessWidget {
             //     children: [
             //       Expanded(
             //         child: ElevatedButton(
-                      
+
             //             style: ElevatedButton.styleFrom(
             //               primary: Colors.deepPurple,
             //             ),

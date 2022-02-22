@@ -39,6 +39,11 @@ dependencies:
   get: ^4.6.1
 
 
+  getwidget: ^2.0.4
+  lipsum: ^1.0.1
+
+  flutter_advanced_drawer: ^1.3.0
+
 dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
@@ -54,3 +59,5 @@ flutter:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
+  assets:
+    - assets/

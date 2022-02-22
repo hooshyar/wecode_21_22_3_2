@@ -31,6 +31,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:wecode_2021/src/trainers_screen/trainers_list_of_news.dart';
 
 // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 //     FlutterLocalNotificationsPlugin();
@@ -68,6 +69,13 @@ void main() async {
 
   //FIXME: initialize Local notifications
 
+
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('app_icon');
+
+  /// Note: permissions aren't requested here just to demonstrate that can be
+  /// done later
+
   // await _configureLocalTimeZone();
 
   // final NotificationAppLaunchDetails? notificationAppLaunchDetails = !kIsWeb &&
@@ -85,6 +93,7 @@ void main() async {
 
   // /// Note: permissions aren't requested here just to demonstrate that can be
   // /// done later
+
   // final IOSInitializationSettings initializationSettingsIOS =
   //     IOSInitializationSettings(
   //         requestAlertPermission: false,
@@ -114,6 +123,10 @@ void main() async {
   // final LinuxInitializationSettings initializationSettingsLinux =
   //     LinuxInitializationSettings(
   //   defaultActionName: 'Open notification',
+
+  //   defaultIcon: AssetsLinuxIcon('icons/app_icon.png'),
+
+
 
   // );
   // final InitializationSettings initializationSettings = InitializationSettings(
@@ -145,11 +158,13 @@ void main() async {
   //   });
   // });
   runApp(
-    MultiProvider(
-      child: const AppView(),
-      providers: [
-        ChangeNotifierProvider(create: (context) => AuthService()),
-      ],
+    MaterialApp(
+      home: MultiProvider(
+        child: AppView(),
+        providers: [
+          ChangeNotifierProvider(create: (context) => AuthService()),
+        ],
+      ),
     ),
   );
 }
