@@ -7,7 +7,8 @@ import 'package:wecode_2021/src/services/auth_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewsStudentScreen extends StatefulWidget {
-  const NewsStudentScreen({Key? key, required this.generalUser}) : super(key: key);
+  const NewsStudentScreen({Key? key, required this.generalUser})
+      : super(key: key);
   final GeneralUser? generalUser;
 
   @override
@@ -36,13 +37,16 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
               title: Text('Student News'),
               centerTitle: true,
               backgroundColor: Colors.deepPurple[400],
-
-              
             ),
             body: widget.generalUser == null
                 ? Container(child: Text('You are not authorised'))
                 : Column(
                     children: [
+                      ElevatedButton(
+                          onPressed: () =>
+                              Provider.of<AuthService>(context, listen: false)
+                                  .logOut(),
+                          child: Text('data')),
                       Expanded(
                         flex: 2,
                         child: Container(
