@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wecode_2021/src/jobs_screen/favourite_job_screen.dart';
 import 'package:wecode_2021/src/jobs_screen/jobs_board_screen.dart';
+import 'package:wecode_2021/src/jobs_screen/list_of_jobs_screen.dart';
 import 'package:wecode_2021/src/profile_screens/create_profile_screen.dart';
 import 'package:wecode_2021/src/student_screen/news_student_screen.dart';
 import 'package:wecode_2021/src/student_screen/student_linktree_view.dart';
@@ -12,6 +14,16 @@ class StudentDashboardScreen extends StatefulWidget {
 }
 
 class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
+
+ int _currentIndex = 0;
+
+  List<Widget> _screens = [
+   
+    ListOfJobsScreen(),
+    FavouriteJobScreen(),
+    //Todo: listOfNewsScreen()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +105,10 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
             ),
           ]),
       bottomNavigationBar: BottomNavigationBar(
+       onTap: (value) => setState(() {
+          _currentIndex = value;
+        }),
+        currentIndex: _currentIndex,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
