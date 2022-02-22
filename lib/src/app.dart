@@ -17,6 +17,7 @@ import 'package:wecode_2021/src/student_screen/student_dashboard_screen.dart';
 import 'package:wecode_2021/src/student_screen/student_linktree_view.dart';
 import 'package:wecode_2021/src/student_screen/news_student_screen.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_dashboard_screen_view.dart';
+import 'package:wecode_2021/src/trainers_screen/trainers_list_of_news.dart';
 import 'package:wecode_2021/src/widgets/auth_handler.dart';
 
 class AppView extends StatelessWidget {
@@ -39,7 +40,7 @@ class AppView extends StatelessWidget {
       initialRoute: '/',
       // initialRoute: '/trainersScreen',
       routes: {
-        '/': (context) => AuthHandler(), //this has to be the Auth handler
+        '/': (context) => TrainersScreenView(), //this has to be the Auth handler
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),

@@ -31,7 +31,7 @@ class _TrainersScreenViewState extends State<TrainersScreenView> {
   List<Widget> _screens = [
     TrainersListOfStudentsScreen(),
     TrainersListOfJobsScreen(),
-    TrainersListOfNewsScreen()
+    TrainersListOfNewsScreen(),
   ];
   @override
   void initState() {
