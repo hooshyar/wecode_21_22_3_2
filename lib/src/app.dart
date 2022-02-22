@@ -44,7 +44,7 @@ class AppView extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),
-        '/trainersScreen': (context) => TrainersScreenView(),
+
         '/privacyPolicyScreen': (context) => const PrivacyPolicyScreen(),
         '/studentDashboard': (context) => StudentDashboard(),
       },

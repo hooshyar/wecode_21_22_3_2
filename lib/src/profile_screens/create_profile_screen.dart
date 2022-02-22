@@ -36,9 +36,13 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _bootCampIdController = TextEditingController();
-  final TextEditingController _bootCampNameController = TextEditingController();
+  // final TextEditingController _bootCampNameController = TextEditingController();
   final TextEditingController _linkedInController = TextEditingController();
   final TextEditingController _githubController = TextEditingController();
+  final _bioController = TextEditingController();
+
+  final List<String> bootcamps = ['Flutter', 'React', 'UX/UI', 'Netwotk'];
+  String? selectedBootcamp;
 
   //todo we want to save the email address and the UID as well
   @override
@@ -111,6 +115,15 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               controller: _nameController,
                               decoration:
                                   generalInputDecoration(labelText: 'name'),
+                              validator: (enteredName) {
+                                if (enteredName == null ||
+                                    enteredName.isEmpty) {
+                                  return "*Enter name";
+                                } else if (enteredName.length < 4) {
+                                  return '*Name should be at least 4 characters';
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
                               height: 15,
@@ -119,9 +132,10 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               controller: _phoneNumberController,
                               decoration: generalInputDecoration(
                                   labelText: 'phone Number'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'the phone number is required';
+                              validator: (phoneNumber) {
+                                if (phoneNumber == null ||
+                                    phoneNumber.isEmpty) {
+                                  return '*Enter phone number';
                                 } else
                                   return null;
                               },
@@ -129,11 +143,45 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             const SizedBox(
                               height: 15,
                             ),
-                            TextFormField(
-                              controller: _bootCampNameController,
-                              decoration: generalInputDecoration(
-                                  labelText: 'bootcamp name'),
+                            // drop down for bootcamp name
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  hint: Text("Select bootcamp"),
+                                  value: selectedBootcamp,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  iconSize: 34,
+                                  elevation: 16,
+                                  isExpanded: true,
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectedBootcamp = newValue;
+                                    });
+                                  },
+                                  items: bootcamps.map(buildMenuItem).toList(),
+                                ),
+                              ),
                             ),
+
+                            // TextFormField(
+
+                            //   controller: _bootCampNameController,
+                            //   decoration: generalInputDecoration(
+                            //       labelText: 'bootcamp name'),
+                            //   validator: (bootCampName) {
+                            //     if(bootCampName == null || bootCampName.isEmpty) {
+                            //       return "*Enter bootcamp name";
+                            //     } else if (bootCampName.length < 4) {
+                            //       return '*bootcamp name should be at least 4 characters';
+                            //     }
+                            //     return null;
+                            //   },
+                            // ),
                             const SizedBox(
                               height: 15,
                             ),
@@ -141,6 +189,12 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               controller: _bootCampIdController,
                               decoration: generalInputDecoration(
                                   labelText: 'bootcamp ID'),
+                              validator: (bootCampId) {
+                                if (bootCampId == null || bootCampId.isEmpty) {
+                                  return '*Enter bootcamp ID';
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
                               height: 15,
@@ -149,6 +203,13 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               controller: _linkedInController,
                               decoration:
                                   generalInputDecoration(labelText: 'Linkedin'),
+                              validator: (linkedInText) {
+                                if (linkedInText == null ||
+                                    linkedInText.isEmpty) {
+                                  return "*Enter linked in";
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
                               height: 15,
@@ -157,6 +218,28 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               controller: _githubController,
                               decoration:
                                   generalInputDecoration(labelText: 'Github'),
+                              validator: (githubText) {
+                                if (githubText == null || githubText.isEmpty) {
+                                  return '*Enter Gitub';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            TextFormField(
+                              controller: _bioController,
+                              decoration:
+                                  generalInputDecoration(labelText: 'Bio'),
+                              validator: (bioText) {
+                                if (bioText == null || bioText.isEmpty) {
+                                  return '*Enter your bio';
+                                } else if(bioText.length < 6) {
+                                  return 'Bio must be 6 or more characters long';
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
                               height: 15,
@@ -176,7 +259,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
                                     if (_isValidated == true &&
                                         _authProvider.theUser != null) {
-                                      _selectedProfileImg == null
+                                      _selectedProfileImg == null &&
+                                              selectedBootcamp != null
                                           ? () {}
                                           : await uploadTheSelectedFile(
                                               _authProvider.theUser!.uid);
@@ -187,17 +271,18 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                         name: _nameController.value.text,
                                         phoneNumber:
                                             _phoneNumberController.value.text,
-                                        bootCampName:
-                                            _bootCampNameController.value.text,
+                                        bootCampName: selectedBootcamp,
                                         bootCampId:
                                             _bootCampIdController.value.text,
                                         github: _githubController.value.text,
                                         linkedIn:
                                             _linkedInController.value.text,
+                                        bio: _bioController.text,
                                         createdAt: Timestamp.now(),
                                         isCompletedProfile:
-                                            _bootCampNameController.value.text
-                                                        .isNotEmpty ||
+                                            selectedBootcamp != null &&
+                                                        selectedBootcamp!
+                                                            .isNotEmpty ||
                                                     _bootCampIdController
                                                         .value.text.isNotEmpty
                                                 ? true
@@ -223,6 +308,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                       //   'email': 00121212,
                                       //   'bootCampId': "whad",
                                       // }).catchError((e) => debugPrint(e.toString()));
+                                    } else {
+                                      // Stop the infinite circular progress indicator if the forms aren't valid
+                                      _isLoading = false;
                                     }
                                   },
                                   child: Text('Create it!'),
@@ -330,4 +418,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
     //todo remove this if for production
     //recieve the downloadURL for the image
   }
+
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+        value: item,
+        child: Text('$item'),
+      );
 }

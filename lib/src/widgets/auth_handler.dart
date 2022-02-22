@@ -71,7 +71,9 @@ class AuthHandler extends StatelessWidget {
                   true) {
                 // return Text('66');
 
-                return TrainersScreenView(); // change it to trainer
+                return TrainersScreenView(
+                  generalUser: Provider.of<AuthService>(context).generalUser,
+                ); // change it to trainer
               } else {
                 debugPrint('student 2');
                 // return Text('69');
