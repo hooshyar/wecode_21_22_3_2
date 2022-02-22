@@ -5,6 +5,7 @@ A new Flutter project.
 
 
 ## Todos
+
 - [ ] Add theming design, colors and fonts
 - [ ] Redesign Landing screen before, login and sign up page redesign
 - [ ] Graphic and Animation design (Rive or Lottie)
@@ -19,7 +20,8 @@ A new Flutter project.
 - [ ] Single news view 
 - [ ] Remove login error when pop the screen
 - [ ] Students screen bottom navigation, list of jobs(no ability to post a new)
- 
+
+
 
  ## Getting Started
 

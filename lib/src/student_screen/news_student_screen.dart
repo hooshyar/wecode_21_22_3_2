@@ -36,6 +36,7 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
   Widget build(BuildContext context) {
     return widget.generalUser == 1
         ? Container()
+
         : AdvancedDrawer(
             backdropColor: Color.fromARGB(255, 0, 0, 0),
             controller: _advancedDrawerController,
@@ -54,6 +55,13 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
                 ),
               ],
               borderRadius: BorderRadius.circular(30),
+
+        : Scaffold(
+            appBar: AppBar(
+              title: Text('Student News'),
+              centerTitle: true,
+              backgroundColor: Colors.deepPurple[400],
+
             ),
             drawer: SafeArea(
               child: Container(
@@ -64,6 +72,7 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+
                       Container(
                           width: 100.0,
                           height: 100.0,
@@ -233,6 +242,24 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
                             flex: 2,
                             child: Container(
                               // color: Colors.red,
+
+                      ElevatedButton(
+                          onPressed: () =>
+                              Provider.of<AuthService>(context, listen: false)
+                                  .logOut(),
+                          child: Text('data')),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          // color: Colors.red,
+                          child: Container(
+                            margin: EdgeInsets.only(top: 20, bottom: 20),
+                            height: 120,
+                            width: 120,
+                            // color: Colors.black26,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(18),
+
                               child: Container(
                                 margin: EdgeInsets.only(top: 20, bottom: 20),
                                 height: 120,
