@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/constants/style.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
@@ -24,7 +25,16 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: Text('Login'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple[400],
+        backgroundColor: Theme.of(context).primaryColor,
+         actions: <Widget>[
+         Padding(
+           padding: const EdgeInsets.all(10.0),
+           child: IconButton(onPressed: () {
+             Get.isDarkMode 
+             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
+           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
+         ),
+         ]
       ),
       body: Container(
         margin: EdgeInsets.all(15),

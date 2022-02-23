@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 import 'package:wecode_2021/src/services/firestore_service.dart';
@@ -21,7 +22,16 @@ class _FavouriteJobScreenState extends State<FavouriteJobScreen> {
       appBar: AppBar(
         title: Text("Favs"),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple[400],
+        backgroundColor: Theme.of(context).primaryColor,
+         actions: <Widget>[
+         Padding(
+           padding: const EdgeInsets.all(10.0),
+           child: IconButton(onPressed: () {
+             Get.isDarkMode 
+             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
+           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
+         ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.deepPurple,

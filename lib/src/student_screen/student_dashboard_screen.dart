@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wecode_2021/src/jobs_screen/favourite_job_screen.dart';
 import 'package:wecode_2021/src/jobs_screen/jobs_board_screen.dart';
 import 'package:wecode_2021/src/jobs_screen/list_of_jobs_screen.dart';
@@ -30,7 +31,16 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       appBar: AppBar(
         title: Text('Student Dashboard'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple[400],
+           backgroundColor: Theme.of(context).primaryColor,
+         actions: <Widget>[
+         Padding(
+           padding: const EdgeInsets.all(10.0),
+           child: IconButton(onPressed: () {
+             Get.isDarkMode 
+             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
+           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
+         ),
+         ]
       ),
       drawer: Drawer(
         child: ListView(children: [

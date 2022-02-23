@@ -10,6 +10,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:wecode_2021/src/constants/style.dart';
@@ -53,7 +54,16 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
       appBar: AppBar(
         title: Text('Create your profile'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple[400],
+         backgroundColor: Theme.of(context).primaryColor,
+         actions: <Widget>[
+         Padding(
+           padding: const EdgeInsets.all(10.0),
+           child: IconButton(onPressed: () {
+             Get.isDarkMode 
+             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
+           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
+         ),
+         ]
       ),
       body: _isLoading == true
           ? Center(child: CircularProgressIndicator())
