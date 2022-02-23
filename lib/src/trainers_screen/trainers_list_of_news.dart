@@ -3,7 +3,7 @@ import 'package:getwidget/getwidget.dart';
 import 'package:wecode_2021/src/data_models/general_user.dart';
 import 'package:wecode_2021/src/trainers_screen/newsDetail.dart';
 import 'package:wecode_2021/src/trainers_screen/trainers_news_data_model.dart';
-
+//ggggggg
 class TrainersListOfNewsScreen extends StatefulWidget {
   TrainersListOfNewsScreen({Key? key}) : super(key: key);
   
