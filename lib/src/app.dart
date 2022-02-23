@@ -30,26 +30,22 @@ class AppView extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primaryColor: Colors.deepPurple[400],
-          textTheme: TextTheme(
-              bodyText1: TextStyle(
-            fontSize: 18, 
-          )),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.red,
-          ),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          
-          ),
-          
-        
+        primaryColor: Colors.deepPurple[400],
+        textTheme: TextTheme(
+            bodyText1: TextStyle(
+          fontSize: 18,
+        )),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.red,
+        ),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+
       // theme: ThemeData.dark(),
-      initialRoute: '/homeScreenView',
+      initialRoute: '/',
       // initialRoute: '/trainersScreen',
       routes: {
-        '/': (context) => TrainersScreenView(
-              generalUser: GeneralUser(),
-            ), //this has to be the Auth handler
+        '/': (context) => AuthHandler(), //this has to be the Auth handler
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/createProfileScreen': (context) => CreateProfileScreen(),

@@ -15,20 +15,24 @@ class HomeScreenView extends StatelessWidget {
         title: Text("Home Screen"),
         centerTitle: true,
 
-        backgroundColor:Theme.of(context).primaryColor ,
+        backgroundColor: Theme.of(context).primaryColor,
         actions: <Widget>[
-         Padding(
-           padding: const EdgeInsets.all(10.0),
-           child: IconButton(onPressed: () {
-             Get.isDarkMode 
-             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
-           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
-         ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: IconButton(
+              onPressed: () {
+                Get.isDarkMode
+                    ? Get.changeTheme(ThemeData.light())
+                    : Get.changeTheme(ThemeData.dark());
+              },
+              icon:
+                  Icon(Get.isDarkMode ? Icons.mode_night : Icons.brightness_7),
+              color: Colors.white,
+            ),
+          ),
         ],
-      
 
-        backgroundColor: Colors.deepPurple[400],
-
+        // backgroundColor: Colors.deepPurple[400],
       ),
       body: Center(
         child: Column(
