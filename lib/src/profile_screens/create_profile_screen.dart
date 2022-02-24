@@ -42,7 +42,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   final TextEditingController _githubController = TextEditingController();
   final _bioController = TextEditingController();
 
-  final List<String> bootcamps = ['Flutter', 'React', 'UX/UI', 'Netwotk'];
+  final List<String> bootcamps = ['Flutter', 'React', 'UX/UI'];
   String? selectedBootcamp;
 
   //todo we want to save the email address and the UID as well
@@ -52,19 +52,24 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create your profile'),
-        centerTitle: true,
-         backgroundColor: Theme.of(context).primaryColor,
-         actions: <Widget>[
-         Padding(
-           padding: const EdgeInsets.all(10.0),
-           child: IconButton(onPressed: () {
-             Get.isDarkMode 
-             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
-           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
-         ),
-         ]
-      ),
+          title: Text('Create your profile'),
+          centerTitle: true,
+          backgroundColor: Theme.of(context).primaryColor,
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: IconButton(
+                onPressed: () {
+                  Get.isDarkMode
+                      ? Get.changeTheme(ThemeData.light())
+                      : Get.changeTheme(ThemeData.dark());
+                },
+                icon: Icon(
+                    Get.isDarkMode ? Icons.mode_night : Icons.brightness_7),
+                color: Colors.white,
+              ),
+            ),
+          ]),
       body: _isLoading == true
           ? Center(child: CircularProgressIndicator())
           : Container(
@@ -72,55 +77,57 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
               margin: EdgeInsets.all(20),
               child: Column(
                 children: [
-                  _selectedProfileImg == null
-                      ? Container(
-                          height: 120,
-                          width: 120,
-                          decoration: BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius: BorderRadius.all(Radius.circular(70)),
-                          ),
-                        )
-                      : Container(
-                          height: 120,
-                          width: 120,
-                          decoration: BoxDecoration(
-                            color: _selectedProfileImg == null
-                                ? Colors.blue
-                                : null,
-                            image: DecorationImage(
-                              image: FileImage(
-                                File(_selectedProfileImg!.path),
-                              ),
-                            ),
-                          ),
-                        ),
-                  Divider(
-                    height: 10,
-                    color: Colors.white,
-                  ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple,
-                      ),
-                      onPressed: () async {
-                        // add image picker package
-                        _selectedProfileImg = await _imagePicker.pickImage(
-                            source: ImageSource.gallery);
-
-                        // debugPrint("===========>>>" + _selectedProfileImg!.path);
-                        setState(() {});
-                        // pick an image from the gallery
-                      },
-                      child: Text('Select profile image')),
-                  const SizedBox(
-                    height: 15,
-                  ),
                   Expanded(
                     child: Form(
                         key: _formGlobalKey,
                         child: ListView(
                           children: [
+                            _selectedProfileImg == null
+                                ? Container(
+                                    height: 60,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      color: Colors.deepPurple,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(70)),
+                                    ),
+                                  )
+                                : Container(
+                                    height: 60,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      color: _selectedProfileImg == null
+                                          ? Colors.blue
+                                          : null,
+                                      image: DecorationImage(
+                                        image: FileImage(
+                                          File(_selectedProfileImg!.path),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                            Divider(
+                              height: 10,
+                              color: Colors.white,
+                            ),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.deepPurple,
+                                ),
+                                onPressed: () async {
+                                  // add image picker package
+                                  _selectedProfileImg = await _imagePicker
+                                      .pickImage(source: ImageSource.gallery);
+
+                                  // debugPrint("===========>>>" + _selectedProfileImg!.path);
+                                  setState(() {});
+                                  // pick an image from the gallery
+                                },
+                                child: Text('Select profile image')),
+                            const SizedBox(
+                              height: 15,
+                            ),
+
                             TextFormField(
                               controller: _nameController,
                               decoration:
@@ -128,7 +135,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               validator: (enteredName) {
                                 if (enteredName == null ||
                                     enteredName.isEmpty) {
-                                  return "*Enter name";
+                                  return "*Enter your name";
                                 } else if (enteredName.length < 4) {
                                   return '*Name should be at least 4 characters';
                                 }
@@ -155,7 +162,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             ),
                             // drop down for bootcamp name
                             Container(
-                              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 6, horizontal: 10),
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(8),
@@ -199,12 +207,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               controller: _bootCampIdController,
                               decoration: generalInputDecoration(
                                   labelText: 'bootcamp ID'),
-                              validator: (bootCampId) {
-                                if (bootCampId == null || bootCampId.isEmpty) {
-                                  return '*Enter bootcamp ID';
-                                }
-                                return null;
-                              },
+                              validator: null,
                             ),
                             const SizedBox(
                               height: 15,
@@ -216,7 +219,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               validator: (linkedInText) {
                                 if (linkedInText == null ||
                                     linkedInText.isEmpty) {
-                                  return "*Enter linked in";
+                                  return "*Enter Your Linkedin Profile";
                                 }
                                 return null;
                               },
@@ -228,12 +231,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               controller: _githubController,
                               decoration:
                                   generalInputDecoration(labelText: 'Github'),
-                              validator: (githubText) {
-                                if (githubText == null || githubText.isEmpty) {
-                                  return '*Enter Gitub';
-                                }
-                                return null;
-                              },
+                              validator: null,
                             ),
                             const SizedBox(
                               height: 15,
@@ -242,14 +240,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               controller: _bioController,
                               decoration:
                                   generalInputDecoration(labelText: 'Bio'),
-                              validator: (bioText) {
-                                if (bioText == null || bioText.isEmpty) {
-                                  return '*Enter your bio';
-                                } else if(bioText.length < 6) {
-                                  return 'Bio must be 6 or more characters long';
-                                }
-                                return null;
-                              },
+                              validator: null,
                             ),
                             const SizedBox(
                               height: 15,
