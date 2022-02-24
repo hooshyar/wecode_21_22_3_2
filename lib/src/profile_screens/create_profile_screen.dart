@@ -84,10 +84,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                           children: [
                             _selectedProfileImg == null
                                 ? Container(
-                                    height: 60,
-                                    width: 120,
                                     decoration: BoxDecoration(
-                                      color: Colors.deepPurple,
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(70)),
                                     ),
@@ -97,7 +94,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                     width: 120,
                                     decoration: BoxDecoration(
                                       color: _selectedProfileImg == null
-                                          ? Colors.blue
+                                          ? mainColor
                                           : null,
                                       image: DecorationImage(
                                         image: FileImage(
@@ -301,7 +298,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                           _isLoading = false;
                                           debugPrint(_isLoading.toString());
                                         });
-                                        Navigator.pushNamed(context, '/');
+                                        Navigator.pop(context);
+                                        // Navigator.pushNamed(context, '/');
                                       });
                                       //     .collection('users')
                                       //     .add({
