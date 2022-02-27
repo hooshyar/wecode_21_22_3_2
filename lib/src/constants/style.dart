@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-Color mainColor = Colors.purpleAccent;
-Color secondColor = Colors.purpleAccent;
+const Color mainColor = Color(0xFF119faa);
+const Color secondColor = Color(0xFF297FBA);
 
 InputDecoration generalInputDecoration(
     {required String labelText, String? hintText}) {

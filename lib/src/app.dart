@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:wecode_2021/src/constants/style.dart';
 import 'package:wecode_2021/src/data_models/general_user.dart';
 import 'package:wecode_2021/src/home_screen/home_screen_view.dart';
 
@@ -27,14 +28,11 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      darkTheme: ThemeData(),
       theme: ThemeData(
-        primaryColor: Colors.deepPurple[400],
-        textTheme: TextTheme(
-            bodyText1: TextStyle(
-          fontSize: 18,
-        )),
+        primaryColor: mainColor,
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.red,
+          backgroundColor: mainColor,
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -50,7 +48,7 @@ class AppView extends StatelessWidget {
         '/homeScreenView': (context) => HomeScreenView(),
 
         '/privacyPolicyScreen': (context) => const PrivacyPolicyScreen(),
-        '/studentDashboard': (context) => StudentDashboard(),
+        '/studentDashboard': (context) => StudentDashboardScreen(),
       },
     );
   }

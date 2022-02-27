@@ -24,7 +24,7 @@ class TrainersListOfStudentsScreen extends StatelessWidget {
     //           },
     //           child: Text('to the jobs board'),
     //           style: ElevatedButton.styleFrom(
-    //             primary: Colors.deepPurple,
+    //             primary: mainColor
     //           ),
     //         ),
     //         ElevatedButton(
@@ -38,7 +38,7 @@ class TrainersListOfStudentsScreen extends StatelessWidget {
     //           },
     //           child: Text('Student Linktree'),
     //           style: ElevatedButton.styleFrom(
-    //             primary: Colors.deepPurple,
+    //             primary: mainColor
     //           ),
     //         ),
     //       ]),

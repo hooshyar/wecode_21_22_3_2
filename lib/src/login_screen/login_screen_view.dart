@@ -23,19 +23,24 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).primaryColor,
-         actions: <Widget>[
-         Padding(
-           padding: const EdgeInsets.all(10.0),
-           child: IconButton(onPressed: () {
-             Get.isDarkMode 
-             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
-           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
-         ),
-         ]
-      ),
+          title: Text('Login'),
+          centerTitle: true,
+          backgroundColor: Theme.of(context).primaryColor,
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: IconButton(
+                onPressed: () {
+                  Get.isDarkMode
+                      ? Get.changeTheme(ThemeData.light())
+                      : Get.changeTheme(ThemeData.dark());
+                },
+                icon: Icon(
+                    Get.isDarkMode ? Icons.mode_night : Icons.brightness_7),
+                color: Colors.white,
+              ),
+            ),
+          ]),
       body: Container(
         margin: EdgeInsets.all(15),
         child: SingleChildScrollView(
@@ -46,29 +51,30 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                 children: [
                   // Text('the logged in user: $theLoggedInUser'),
-        
+
                   //user name
                   TextFormField(
                     controller: _userNameController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: generalInputDecoration(
-                        labelText: 'User Name', hintText: 'email@something.com'),
+                        labelText: 'User Name',
+                        hintText: 'email@something.com'),
                   ),
                   //passsword
-        
+
                   SizedBox(height: 15),
-        
+
                   TextFormField(
                     controller: _passwordController,
                     obscureText: true,
                     decoration: generalInputDecoration(labelText: 'Password'),
                   ),
 
-                   SizedBox(
+                  SizedBox(
                     height: 150,
-                  ), 
+                  ),
 
-                    ElevatedButton.icon(
+                  ElevatedButton.icon(
                     onPressed: () async {
                       setState(() {
                         name = _userNameController.value.text;
@@ -76,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                       name = name.trim(); //remove spaces
                       name = name.toLowerCase(); //convert to lowercase
-        
+
                       await Provider.of<AuthService>(context, listen: false)
                           .loginWithEmailAndPassword(name, password!)
                           .then((value) {
@@ -92,11 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: Text(
                       'Login',
                     ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.deepPurple,
-                    ),
+                    style: ElevatedButton.styleFrom(primary: mainColor),
                   ),
-        
+
                   //error
                   Provider.of<AuthService>(context).theError == null
                       ? Container()
@@ -110,14 +114,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   //   height: 50,
                   // ),
                   TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/privacyPolicyScreen');
-                      },
-                      child: Text('Privacy Policy'),
-                      style: TextButton.styleFrom(
-                        primary: Colors.deepPurple
-                      ),
-                      )
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/privacyPolicyScreen');
+                    },
+                    child: Text('Privacy Policy'),
+                    style: TextButton.styleFrom(primary: Colors.deepPurple),
+                  )
                 ],
               ))
             ],

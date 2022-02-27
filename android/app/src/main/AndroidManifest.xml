@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wecode_2021">
+    package="app.datacode.wecode_2021">
 
+ <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
      <queries>
         <!-- If your app opens https URLs -->
@@ -26,7 +27,7 @@
         </queries>
         
    <application
-        android:label="wecode_2021"
+        android:label="Wecode"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

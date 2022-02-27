@@ -1,4 +1,4 @@
-package com.example.wecode_2021
+package app.datacode.wecode_2021
 
 import io.flutter.embedding.android.FlutterActivity
 

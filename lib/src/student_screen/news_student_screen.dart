@@ -64,7 +64,7 @@ class _NewsStudentScreenState extends State<NewsStudentScreen> {
         appBar: AppBar(
           title: Text('Student News'),
           centerTitle: true,
-          backgroundColor: Colors.deepPurple[400],
+          // backgroundColor: Colors.deepPurple[400],
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.all(10.0),

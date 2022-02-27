@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:611968909451:android:e50eff536c3ff8db8f948e",
         "android_client_info": {
-          "package_name": "com.example.wecode_2021"
+          "package_name": "app.datacode.wecode_2021"
         }
       },
       "oauth_client": [

@@ -28,24 +28,28 @@ class _NewJobScreenState extends State<NewJobScreen> {
   TextEditingController date_valid_Controller = TextEditingController();
   TextEditingController send_cv_Controller = TextEditingController();
 
-  
-
-  DateTime date = DateTime(2022,1,28);
+  DateTime date = DateTime(2022, 1, 28);
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Add a new job "),
         centerTitle: true,
-         backgroundColor: Theme.of(context).primaryColor,
-         actions: <Widget>[
-         Padding(
-           padding: const EdgeInsets.all(10.0),
-           child: IconButton(onPressed: () {
-             Get.isDarkMode 
-             ? Get.changeTheme(ThemeData.light()) : Get.changeTheme(ThemeData.dark());
-           }, icon: Icon(Get.isDarkMode? Icons.mode_night: Icons.brightness_7), color: Colors.white,),
-         ),
+        backgroundColor: Theme.of(context).primaryColor,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: IconButton(
+              onPressed: () {
+                Get.isDarkMode
+                    ? Get.changeTheme(ThemeData.light())
+                    : Get.changeTheme(ThemeData.dark());
+              },
+              icon:
+                  Icon(Get.isDarkMode ? Icons.mode_night : Icons.brightness_7),
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -53,54 +57,43 @@ class _NewJobScreenState extends State<NewJobScreen> {
           child: Form(
             child: Column(children: [
               SizedBox(height: 15),
-
-              TextFormField(            
+              TextFormField(
                 controller: job_title_Controller,
                 keyboardType: TextInputType.text,
                 decoration: generalInputDecoration(labelText: 'Job Title'),
               ),
-
               SizedBox(height: 15),
-
               DropdownButtonFormField(
-                decoration:generalInputDecoration(labelText: 'category'),
-                items:jobCategories.map((e) =>DropdownMenuItem(
-               value: e, 
-               child: Text(e),
-               )
-               ).toList() ,
-                onChanged:(value){setState(() { } 
-                ); } 
-                ),
-
+                  decoration: generalInputDecoration(labelText: 'category'),
+                  items: jobCategories
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {});
+                  }),
               SizedBox(height: 15),
-
               TextFormField(
                 controller: company_name_Controller,
                 keyboardType: TextInputType.text,
                 decoration: generalInputDecoration(
-                    labelText: 'Company name',
-                     hintText: 'Company name'),
+                    labelText: 'Company name', hintText: 'Company name'),
               ),
-
               SizedBox(height: 15),
-
               TextFormField(
                 controller: job_desc_Controller,
                 keyboardType: TextInputType.text,
                 decoration: generalInputDecoration(
-                labelText: 'Job desc',
-                 hintText: 'job desc'),
+                    labelText: 'Job desc', hintText: 'job desc'),
               ),
-
               SizedBox(height: 15),
-
               TextFormField(
                 controller: hires_times_Controller,
                 keyboardType: TextInputType.text,
                 decoration: generalInputDecoration(
-                    labelText: 'how many hires',
-                     hintText: 'how many hires'),
+                    labelText: 'how many hires', hintText: 'how many hires'),
               ),
               SizedBox(height: 15),
               TextFormField(
@@ -111,72 +104,59 @@ class _NewJobScreenState extends State<NewJobScreen> {
                     hintText: 'Salary estimation'),
               ),
               SizedBox(height: 15),
-
               TextFormField(
                 controller: date_valid_Controller,
                 keyboardType: TextInputType.text,
-                decoration:
-                   InputDecoration(
-                     icon: Icon(Icons.event), 
-                     label: Text("valid till date"),
-                      hintText: 'valid till date',
-                    border: OutlineInputBorder(
+                decoration: InputDecoration(
+                  icon: Icon(Icons.event),
+                  label: Text("valid till date"),
+                  hintText: 'valid till date',
+                  border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
-                    ),
-                   
-                     ),
-                     onTap: () async{
-
-                   DateTime? newDAte= await showDatePicker(
+                  ),
+                ),
+                onTap: () async {
+                  DateTime? newDAte = await showDatePicker(
                     context: context,
                     initialDate: date,
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2040),
-                    );
-                    date_valid_Controller.text = date.toIso8601String();
-
-                   },
-                 ),
-
+                  );
+                  date_valid_Controller.text = date.toIso8601String();
+                },
+              ),
               SizedBox(height: 15),
-              
               TextFormField(
                 controller: send_cv_Controller,
                 keyboardType: TextInputType.text,
                 decoration:
-               generalInputDecoration(
-                 labelText: 'Send CV to email'
-                 ),
+                    generalInputDecoration(labelText: 'Send CV to email'),
               ),
-
-               SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
-                onPressed: () async {
-                  Job _newJob = Job(
-                      jobCategory: category_Controller.value.text,
-                      jobCreatedAt: Timestamp.now(),
-                      jobDueDate: Timestamp.now(),
-                      jobDesc: job_desc_Controller.value.text,
-                      jobViews: 0,
-                      jobHiresCount: 0,
-                      jobLikeCount: 0,
-                      jobTitle: job_title_Controller.value.text,
-                      companyName: 'some com',
-                      emailAddress: 'fdsa',
-                      salaryEstimate: 21212,
-                      isFaved: false);
+                  onPressed: () async {
+                    Job _newJob = Job(
+                        jobCategory: category_Controller.value.text,
+                        jobCreatedAt: Timestamp.now(),
+                        jobDueDate: Timestamp.now(),
+                        jobDesc: job_desc_Controller.value.text,
+                        jobViews: 0,
+                        jobHiresCount: 0,
+                        jobLikeCount: 0,
+                        jobTitle: job_title_Controller.value.text,
+                        companyName: 'some com',
+                        emailAddress: 'fdsa',
+                        salaryEstimate: 21212,
+                        isFaved: false);
 
-                  await _firestoreService
-                      .addNewJob(_newJob)
-                      .then((value) => Navigator.pop(context));
-                },
-                child: Text("Add New Job"),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple,
-                )
-                
-                ),
-              
+                    await _firestoreService
+                        .addNewJob(_newJob)
+                        .then((value) => Navigator.pop(context));
+                  },
+                  child: Text("Add New Job"),
+                  style: ElevatedButton.styleFrom(primary: mainColor)),
             ]),
           ),
         ),

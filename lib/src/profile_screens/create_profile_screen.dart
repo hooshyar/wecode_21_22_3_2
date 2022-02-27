@@ -109,8 +109,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             ),
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.deepPurple,
-                                ),
+                                    primary: mainColor),
                                 onPressed: () async {
                                   // add image picker package
                                   _selectedProfileImg = await _imagePicker
@@ -298,8 +297,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                           _isLoading = false;
                                           debugPrint(_isLoading.toString());
                                         });
-                                        Navigator.pop(context);
-                                        // Navigator.pushNamed(context, '/');
+
+                                        Navigator.pushReplacementNamed(
+                                            context, '/');
                                       });
                                       //     .collection('users')
                                       //     .add({

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:wecode_2021/src/constants/style.dart';
 import 'package:wecode_2021/src/data_models/job_model.dart';
 import 'package:wecode_2021/src/jobs_screen/add_new_job_screen.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
@@ -48,15 +49,18 @@ class _ListOfJobsScreenState extends State<ListOfJobsScreen> {
           ),
         ],
       ),
-      floatingActionButton: Provider.of<AuthService>(context).generalUser!.isTeacher! ?  FloatingActionButton(
-          backgroundColor: Colors.deepPurple,
-          child: FaIcon(FontAwesomeIcons.plus),
-          onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => NewJobScreen()),
-              )
-              
-              ) : Container(),
+      floatingActionButton:
+          Provider.of<AuthService>(context).generalUser!.isTeacher != null &&
+                  Provider.of<AuthService>(context).generalUser!.isTeacher ==
+                      true
+              ? FloatingActionButton(
+                  backgroundColor: mainColor,
+                  child: FaIcon(FontAwesomeIcons.plus),
+                  onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => NewJobScreen()),
+                      ))
+              : Container(),
     );
   }
 }

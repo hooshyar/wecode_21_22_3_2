@@ -33,7 +33,7 @@ class AuthHandler extends StatelessWidget {
     //checking with the firebase auth service for user
     if (user != null) {
       return Scaffold(
-        backgroundColor: Colors.amber,
+        // backgroundColor: Colors.amber,
         // appBar: AppBar(title: Text('AuthHandler'), actions: [
         //   IconButton(
         //       onPressed: () {
@@ -75,14 +75,11 @@ class AuthHandler extends StatelessWidget {
                   generalUser: Provider.of<AuthService>(context).generalUser,
                 ); // change it to trainer
               } else {
-                debugPrint('student 2');
                 // return Text('69');
-                return NewsStudentScreen(
-                  generalUser: Provider.of<AuthService>(context).generalUser,
-                );
+                return StudentDashboardScreen();
               }
             }
-            debugPrint('student4');
+
             // return Text('student');
             return NewsStudentScreen(
               generalUser: Provider.of<AuthService>(context).generalUser,

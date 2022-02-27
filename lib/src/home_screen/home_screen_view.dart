@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:wecode_2021/src/constants/style.dart';
 import 'package:wecode_2021/src/services/auth_service.dart';
 
 class HomeScreenView extends StatelessWidget {
@@ -82,9 +83,7 @@ class HomeScreenView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurple,
-                      ),
+                      style: ElevatedButton.styleFrom(primary: mainColor),
                       onPressed: () {
                         Navigator.pushNamed(context, '/login');
                       },
@@ -94,9 +93,7 @@ class HomeScreenView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.deepPurple,
-                        ),
+                        style: ElevatedButton.styleFrom(primary: mainColor),
                         onPressed: () {
                           Navigator.pushNamed(context, '/register');
                         },
@@ -105,14 +102,14 @@ class HomeScreenView extends StatelessWidget {
                   SizedBox(
                     height: 50,
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Privacy Policy',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {},
+                  //   child: Text(
+                  //     'Privacy Policy',
+                  //     style:
+                  //         TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -127,7 +124,7 @@ class HomeScreenView extends StatelessWidget {
             //       Expanded(
             //         child: ElevatedButton(
             //             style: ElevatedButton.styleFrom(
-            //               primary: Colors.deepPurple,
+            //               primary: mainColor
             //             ),
             //             onPressed: () {
             //               Navigator.pushNamed(context, '/login');
@@ -138,7 +135,7 @@ class HomeScreenView extends StatelessWidget {
             //       Expanded(
             //         child: ElevatedButton(
             //             style: ElevatedButton.styleFrom(
-            //               primary: Colors.deepPurple,
+            //               primary: mainColor
             //             ),
             //             onPressed: () {
             //               Navigator.pushNamed(context, '/register');
@@ -185,7 +182,7 @@ class HomeScreenView extends StatelessWidget {
             //         child: ElevatedButton(
 
             //             style: ElevatedButton.styleFrom(
-            //               primary: Colors.deepPurple,
+            //               primary: mainColor
             //             ),
             //             onPressed: () {
             //               Provider.of<AuthService>(context, listen: false)
